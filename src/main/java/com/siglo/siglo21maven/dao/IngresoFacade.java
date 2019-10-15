@@ -6,9 +6,11 @@
 package com.siglo.siglo21maven.dao;
 
 import com.siglo.siglo21maven.dto.Ingreso;
+import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,13 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
     public IngresoFacade() {
         super(Ingreso.class);
     }
+    
+    
+    public BigDecimal ultimoIngreso() {
+        Query query = em.createQuery("SELECT MAX(i.id)+1 FROM Ingreso i");
+        //System.out.println("variable de la ultima solicitud " + (short) query.getSingleResult());
+        return (BigDecimal) query.getSingleResult();
+    }
+    
     
 }

@@ -62,6 +62,21 @@ public class Ingreso implements Serializable {
         this.id = id;
     }
 
+    public Ingreso(BigDecimal id, Date ingreso, Producto productoId, Usuario usuarioId) {
+        this.id = id;
+        this.ingreso = ingreso;
+        this.productoId = productoId;
+        this.usuarioId = usuarioId;
+    }
+
+    public Ingreso(BigDecimal id, Producto productoId, Usuario usuarioId) {
+        this.id = id;
+        this.productoId = productoId;
+        this.usuarioId = usuarioId;
+    }
+
+    
+    
     public Ingreso(BigDecimal id, Date ingreso) {
         this.id = id;
         this.ingreso = ingreso;

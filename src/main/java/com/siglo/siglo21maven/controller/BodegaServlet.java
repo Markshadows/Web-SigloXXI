@@ -62,6 +62,9 @@ public class BodegaServlet extends HttpServlet {
             if (opcion.equals("RegistrarIngreso")) {
                 RegistrarIngreso(request, response);
             }
+            if (opcion.equals("RegistrarIngreso2")) {
+                RegistrarIngreso2(request, response);
+            }
 
             if (opcion.equals("EditarProducto")) {
                 modificarIngreso(request, response);
@@ -103,7 +106,6 @@ public class BodegaServlet extends HttpServlet {
             String Medida = request.getParameter("txtMedida");
             String Codigo = request.getParameter("txtCodigo");
             String nombre = request.getParameter("txtNombre");
-           
 
             int idProveedor = Integer.parseInt(request.getParameter("txtIdProveedor"));
 
@@ -134,35 +136,32 @@ public class BodegaServlet extends HttpServlet {
             proveedor = new Proveedor();
             //List<String> errores = new ArrayList<>();
 
-          
-            
             short idProducto = Short.parseShort(request.getParameter("txtIdProductoModificar"));
-            System.out.println("id del producto: "+idProducto);
-            String Codigo = request.getParameter("txtCodigoModificar"+idProducto);
-            System.out.println("codigo del producto : "+Codigo);
-            String nombre = request.getParameter("txtNombreModificar"+idProducto);
-            System.out.println("Nombre de producto: "+nombre);
-  
-            BigDecimal idProveedor = BigDecimal.valueOf(Long.parseLong(request.getParameter("txtProveedorModificar"+idProducto)));
-            System.out.println("id del proveedor: "+idProveedor);
-            
-            BigDecimal idmetrica = BigDecimal.valueOf(Long.parseLong(request.getParameter("txtIdModificar"+idProducto)));
-            System.out.println("id de la metrica : "+request.getParameter("txtIdModificar"));
-            
-            BigInteger peso = BigInteger.valueOf(Long.parseLong(request.getParameter("txtPesoModificar"+idProducto)));
-            System.out.println("Pseso de la metrica"+peso);
-            
-            String Medida = request.getParameter("txtMedidaModificar"+idProducto);
-            System.out.println("medida modificar"+Medida);
-            
-            
+            System.out.println("id del producto: " + idProducto);
+            String Codigo = request.getParameter("txtCodigoModificar" + idProducto);
+            System.out.println("codigo del producto : " + Codigo);
+            String nombre = request.getParameter("txtNombreModificar" + idProducto);
+            System.out.println("Nombre de producto: " + nombre);
+
+            BigDecimal idProveedor = BigDecimal.valueOf(Long.parseLong(request.getParameter("txtProveedorModificar" + idProducto)));
+            System.out.println("id del proveedor: " + idProveedor);
+
+            BigDecimal idmetrica = BigDecimal.valueOf(Long.parseLong(request.getParameter("txtIdModificar" + idProducto)));
+            System.out.println("id de la metrica : " + request.getParameter("txtIdModificar"));
+
+            BigInteger peso = BigInteger.valueOf(Long.parseLong(request.getParameter("txtPesoModificar" + idProducto)));
+            System.out.println("Pseso de la metrica" + peso);
+
+            String Medida = request.getParameter("txtMedidaModificar" + idProducto);
+            System.out.println("medida modificar" + Medida);
+
             ///recien aqui empoesa
             pro = productoFacade.find(idProducto);
             met = metricaFacade.find(idmetrica);
             proveedor = proveedorFacade.find(idProveedor);
 
-            System.out.println("nombre proveedor encontrado"+ proveedor.getNombre());
-            
+            System.out.println("nombre proveedor encontrado" + proveedor.getNombre());
+
             pro.setCodigo(Codigo);
             pro.setNombre(nombre);
             pro.setProveedorId(proveedor);
@@ -170,9 +169,9 @@ public class BodegaServlet extends HttpServlet {
             met.setPeso(peso);
             met.setMedida(Medida);
 
-            System.out.println("id del producto encontrado"+pro.getId());
-            System.out.println("id de la metrica encontrada"+met.getId());
-            
+            System.out.println("id del producto encontrado" + pro.getId());
+            System.out.println("id de la metrica encontrada" + met.getId());
+
             productoFacade.edit(pro);
             System.out.println("producto editado");
             metricaFacade.edit(met);
@@ -186,7 +185,7 @@ public class BodegaServlet extends HttpServlet {
 
         } catch (Exception e) {
             System.out.println("error al modificar servlet " + e.getMessage());
-            
+
         }
     }
 
@@ -196,59 +195,57 @@ public class BodegaServlet extends HttpServlet {
         request.getSession().setAttribute("listaDeProveedor", proveedorFacade.findAll());
         request.getSession().setAttribute("listaDeProductos", productoFacade.findAll());
         request.getSession().setAttribute("listaDeSolicitudes", solicitudFacade.findAll());
-        
-        request.getSession().setAttribute("listaDeIngresos",ingresoFacade.findAll());
-        
+
+        request.getSession().setAttribute("listaDeIngresos", ingresoFacade.findAll());
+
 //        try {
 //            response.sendRedirect(paginaRetorno);
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-
     }
 
     private void SolicitarInsumoPersistencia(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         try {
-            
+
             String asunto = request.getParameter("txtAsunto");
             String mensaje = request.getParameter("txtMensaje");
             String[] idProductos = (request.getParameterValues("idProducto"));
-            
+
             //lista para que cda producto ingrresado se transforma a un producto
             List<Producto> productos = new ArrayList<>();
-            
-            
+
             EstadoSolicitud es = estadoSolicitudFacade.find(Short.parseShort("1"));
-            System.out.println("estado de solicitud existente : "+es);
-            
+            System.out.println("estado de solicitud existente : " + es);
+
             //short usi = Short.parseShort( String.valueOf( solicitudFacade.ultimaSolicitudInsert()));
-            short usi =  (short) solicitudFacade.ultimaSolicitudInsert();
-            System.out.println("valor de la variable para dar el id de la nueva solicitud: "+usi);
+            short usi = (short) solicitudFacade.ultimaSolicitudInsert();
+            System.out.println("valor de la variable para dar el id de la nueva solicitud: " + usi);
             //(short)solicitudFacade.ultimaSolicitudInsert()
-            
-            Solicitud s = new Solicitud( usi , asunto, mensaje, es);
-            System.out.println("id de la nueva solicicitud : "+s.getIdSolicitud());
+
+            Solicitud s = new Solicitud(usi, asunto, mensaje, es);
+            System.out.println("id de la nueva solicicitud : " + s.getIdSolicitud());
             solicitudFacade.create(s);
             System.out.println("********se creo la solicitud*******");
 
             //tener el id de esa ultima solicitud 
             short idsolicitudfinal = (short) solicitudFacade.ultimaSolicitud();
-            System.out.println("Id de la solicitud final "+ idsolicitudfinal);
-            
+            System.out.println("Id de la solicitud final " + idsolicitudfinal);
+
             // se forma la ultima solicitud 
             Solicitud solicitudFinal = solicitudFacade.find(idsolicitudfinal);
             System.out.println("id de la solicitud final ");
 
             for (String item : idProductos) {
-               productos.add(productoFacade.find(Short.parseShort(item)));
+                productos.add(productoFacade.find(Short.parseShort(item)));
             }
 
             for (int i = 0; i < productos.size(); i++) {
-                
+
                 short producsolitu = Short.parseShort(String.valueOf(productoSolicitudFacade.ultimaProductoSolicitudInsert()));
-                
-                ProductoSolicitud solicitudporproducto = new ProductoSolicitud( producsolitu , productos.get(i), solicitudFinal);
+
+                ProductoSolicitud solicitudporproducto = new ProductoSolicitud(producsolitu, productos.get(i), solicitudFinal);
                 productoSolicitudFacade.create(solicitudporproducto);
 
             }
@@ -266,6 +263,55 @@ public class BodegaServlet extends HttpServlet {
 
     }
 
+    private void RegistrarIngreso2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        try {
+
+            //saco el id del producto por combobox
+            short idProducto = Short.parseShort(request.getParameter("txtIdProducto"));
+            System.out.println("id del producto: " + idProducto);
+            BigInteger peso = BigInteger.valueOf(Long.parseLong(request.getParameter("txtPesoModificar")));
+            System.out.println("Peso de la metrica: " + peso);
+
+            //se crea el producto 
+            pro = productoFacade.find(idProducto);
+            System.out.println("id del producto encontrado: "+pro.getId());
+            //se le saca la metrica
+            
+            
+            //String s = Short.toString(pro.getMetricaId());
+            //Short.toString(pro.getMetricaId().id);
+            //BigDecimal bg = BigDecimal.valueOf(Long.parseLong(s));
+            //Metrica metrica = metricaFacade.find(bg);
+            Metrica metrica = metricaFacade.find(pro.getMetricaId().getId());
+            System.out.println(" id de la metrica encontrada:  "+metrica.getId());
+            
+            BigInteger metricaActual = metrica.getPeso();
+            BigInteger suma = metricaActual.add(peso);
+            metrica.setPeso(suma);
+
+            metricaFacade.edit(metrica);
+
+            //sacar el ultimo id de el ingreso
+            short idUltimoIngreso = (short) ingresoFacade.ultimoIngreso();
+            //tener al usuario
+
+            Usuario u = usuarioFacade.find(BigDecimal.valueOf(Long.parseLong("2")));
+
+            Ingreso i = new Ingreso(BigDecimal.valueOf(idUltimoIngreso), pro, u);
+
+            ingresoFacade.create(i);
+
+            mensaje = "El producto ha sido Registrado";
+            request.getSession().setAttribute("mensaje", mensaje);
+            response.sendRedirect(paginaRetorno);
+            
+
+        } catch (Exception e) {
+            System.out.println("error en el servlet, Registrar Ingreso 2 en : " + e.getMessage());
+
+        }
+
+    }
+
 }
-
-
