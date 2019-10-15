@@ -5,10 +5,19 @@
  */
 package Controlador;
 
+import dao.BoletaFacade;
 import dao.ClienteFacade;
+import dao.ReservaFacade;
+import dto.Boleta;
 import dto.Cliente;
 import dto.Estado;
+import dto.EstadoBoleta;
+import dto.Mesa;
+import dto.ModoPago;
+import dto.Reserva;
+import dto.Usuario;
 import java.io.IOException;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +29,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Asus
  */
 public class servletCliente extends HttpServlet {
+
+    @EJB
+    private BoletaFacade boletaFacade;
+
+    @EJB
+    private ReservaFacade reservaFacade;
 
     @EJB
     private ClienteFacade clienteFacade;
@@ -82,21 +97,46 @@ public class servletCliente extends HttpServlet {
 
     private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        int id = clienteFacade.ultimoId();
+        
         String rut = request.getParameter("txtRut");
         String nombre = request.getParameter("txtNombre");
         Cliente test = clienteFacade.existe(rut);
-        Estado e = new Estado(1);
+        int idReserva = reservaFacade.ultimoId();
+        java.util.Date hoy = new Date();
+        Estado est = new Estado(1);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
+        Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
+        int id = clienteFacade.ultimoId();
+        Cliente cliente = new Cliente(id, rut, nombre, est);
+        int idBoleta = boletaFacade.ultimoId();
+        ModoPago pago = new ModoPago(1);
+        EstadoBoleta eb = new EstadoBoleta(1);
+        ///se declaran las variables a nivel metodo se pregunta si el cliente existe
         try {
             if (test == null) {
-
-                Cliente cliente = new Cliente(id, rut, nombre, e);
+//si el cliente no existe se genera uno nuevo 
                 clienteFacade.create(cliente);
                 request.getSession().setAttribute("clientes", cliente);
-                response.sendRedirect("reserva.jsp");
+                //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
+                Reserva reserva =new Reserva(idReserva, nombre, hoy, cliente, est, mesa, usuario);
+                reservaFacade.create(reserva);
+                //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
+                Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
+                boletaFacade.create(boleta);
+                request.getSession().setAttribute("boleta", boleta);
+
+                response.sendRedirect("pedido.jsp");
             } else {
+                //si el cliente existe se busca y se almacena por sesiones 
                 request.getSession().setAttribute("clientes", test);
-                response.sendRedirect("reserva.jsp");
+                Reserva reserva = new Reserva(idReserva, nombre, hoy, test, est, mesa, usuario);
+                reservaFacade.create(reserva);
+                //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
+                Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
+                boletaFacade.create(boleta);
+                request.getSession().setAttribute("boleta", boleta);
+
+                response.sendRedirect("pedido.jsp");
             }
 
         } catch (IOException ex) {
