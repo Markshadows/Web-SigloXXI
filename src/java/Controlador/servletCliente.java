@@ -46,9 +46,6 @@ public class servletCliente extends HttpServlet {
 
     @EJB
     private ClienteFacade clienteFacade;
-    
-    
-    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -119,10 +116,10 @@ public class servletCliente extends HttpServlet {
         int idReserva = reservaFacade.ultimoId();
         java.util.Date hoy = new Date();
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
-        Usuario usuarioGuardado =  usuarioFacade.find(usuario.getId());
+        Usuario usuarioGuardado = usuarioFacade.find(usuario.getId());
         Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
-        Mesa mesese=mesaFacade.find(mesa.getId());
-      //  Mesa mesa2 = new Mesa(1);
+        Mesa mesese = mesaFacade.find(mesa.getId());
+        //  Mesa mesa2 = new Mesa(1);
 
         int idBoleta = boletaFacade.ultimoId();
         ModoPago pago = new ModoPago(1);
@@ -137,6 +134,7 @@ public class servletCliente extends HttpServlet {
                 Reserva reserva = new Reserva(idReserva, nombre, hoy, cliente, est, mesese, usuarioGuardado);
                 reservaFacade.create(reserva);
                 //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
+                request.getSession().setAttribute("rese", reserva);
                 Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
                 boletaFacade.create(boleta);
                 request.getSession().setAttribute("boleta", boleta);
