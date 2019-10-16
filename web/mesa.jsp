@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <div class="col-md-12 form-group">
-                                        <input type="submit" value="ingresar" name="btnAccion" class="btn btn-primary">
+                                        <input type="submit" value="mesa" name="btnAccion" class="btn btn-primary">
                                     </div>
                                 </div>
                             </div>

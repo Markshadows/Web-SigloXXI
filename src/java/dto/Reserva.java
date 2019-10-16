@@ -102,8 +102,6 @@ public class Reserva implements Serializable {
         this.usuario = usuario;
     }
 
-  
-
     public int getId() {
         return id;
     }
@@ -204,10 +202,9 @@ public class Reserva implements Serializable {
 //        }
 //        return true;
 //    }
-
     @Override
     public String toString() {
         return "dto.Reserva[ id=" + id + " ]";
     }
-    
+
 }
