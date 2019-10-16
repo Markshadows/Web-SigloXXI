@@ -97,28 +97,30 @@ public class servletCliente extends HttpServlet {
 
     private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        
+        //DATOS CLIENTE
+        int id = clienteFacade.ultimoId();
         String rut = request.getParameter("txtRut");
         String nombre = request.getParameter("txtNombre");
+        Estado est = new Estado(1);
+        Cliente cliente = new Cliente(id, rut, nombre, est);
         Cliente test = clienteFacade.existe(rut);
+        //RESERVA DATOS
         int idReserva = reservaFacade.ultimoId();
         java.util.Date hoy = new Date();
-        Estado est = new Estado(1);
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
         Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
-        int id = clienteFacade.ultimoId();
-        Cliente cliente = new Cliente(id, rut, nombre, est);
+
         int idBoleta = boletaFacade.ultimoId();
         ModoPago pago = new ModoPago(1);
         EstadoBoleta eb = new EstadoBoleta(1);
         ///se declaran las variables a nivel metodo se pregunta si el cliente existe
         try {
             if (test == null) {
-//si el cliente no existe se genera uno nuevo 
+                //si el cliente no existe se genera uno nuevo 
                 clienteFacade.create(cliente);
                 request.getSession().setAttribute("clientes", cliente);
                 //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
-                Reserva reserva =new Reserva(idReserva, nombre, hoy, cliente, est, mesa, usuario);
+                Reserva reserva = new Reserva(idReserva, nombre, hoy, cliente, est, mesa, usuario);
                 reservaFacade.create(reserva);
                 //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
                 Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
