@@ -7,6 +7,7 @@ package Controlador;
 
 import dao.BoletaFacade;
 import dao.ClienteFacade;
+import dao.MesaFacade;
 import dao.ReservaFacade;
 import dao.UsuarioFacade;
 import dto.Boleta;
@@ -32,6 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 public class servletCliente extends HttpServlet {
 
     @EJB
+    private MesaFacade mesaFacade;
+
+    @EJB
     private UsuarioFacade usuarioFacade;
 
     @EJB
@@ -42,6 +46,7 @@ public class servletCliente extends HttpServlet {
 
     @EJB
     private ClienteFacade clienteFacade;
+    
     
     
 
@@ -116,7 +121,8 @@ public class servletCliente extends HttpServlet {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
         Usuario usuarioGuardado =  usuarioFacade.find(usuario.getId());
         Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
-        Mesa mesa2 = new Mesa(1);
+        Mesa mesese=mesaFacade.find(mesa.getId());
+      //  Mesa mesa2 = new Mesa(1);
 
         int idBoleta = boletaFacade.ultimoId();
         ModoPago pago = new ModoPago(1);
@@ -128,7 +134,7 @@ public class servletCliente extends HttpServlet {
                 clienteFacade.create(cliente);
                 request.getSession().setAttribute("clientes", cliente);
                 //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
-                Reserva reserva = new Reserva(idReserva, nombre, hoy, cliente, est, mesa2, usuarioGuardado);
+                Reserva reserva = new Reserva(idReserva, nombre, hoy, cliente, est, mesese, usuarioGuardado);
                 reservaFacade.create(reserva);
                 //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
                 Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
@@ -139,13 +145,12 @@ public class servletCliente extends HttpServlet {
             } else {
                 //si el cliente existe se busca y se almacena por sesiones 
                 request.getSession().setAttribute("clientes", test);
-                Reserva reserva = new Reserva(idReserva, nombre, hoy, test, est, mesa2, usuario);
+                Reserva reserva = new Reserva(idReserva, nombre, hoy, test, est, mesese, usuario);
                 reservaFacade.create(reserva);
                 //(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
                 Boleta boleta = new Boleta(idBoleta, hoy, 0, eb, pago);
                 boletaFacade.create(boleta);
                 request.getSession().setAttribute("boleta", boleta);
-
                 response.sendRedirect("pedido.jsp");
             }
 

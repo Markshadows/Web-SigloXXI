@@ -46,7 +46,7 @@ public class Menu implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
-    private BigDecimal id;
+    private int id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -55,7 +55,7 @@ public class Menu implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRECIO")
-    private BigInteger precio;
+    private int precio;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -72,22 +72,22 @@ public class Menu implements Serializable {
     public Menu() {
     }
 
-    public Menu(BigDecimal id) {
+    public Menu(int id) {
         this.id = id;
     }
 
-    public Menu(BigDecimal id, String nombre, BigInteger precio, String url) {
+    public Menu(int id, String nombre, int precio, String url) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.url = url;
     }
 
-    public BigDecimal getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -99,11 +99,11 @@ public class Menu implements Serializable {
         this.nombre = nombre;
     }
 
-    public BigInteger getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(BigInteger precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
@@ -141,25 +141,25 @@ public class Menu implements Serializable {
         this.estado = estado;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Menu)) {
-            return false;
-        }
-        Menu other = (Menu) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Menu)) {
+//            return false;
+//        }
+//        Menu other = (Menu) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     @Override
     public String toString() {

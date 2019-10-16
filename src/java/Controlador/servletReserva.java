@@ -65,6 +65,9 @@ public class servletReserva extends HttpServlet {
             case "mesa":
                 mesa(request, response);
                 break;
+            case "pagar":
+                pagar(request, response);
+                break;
             default:
                 listar(request, response);
                 break;
@@ -117,7 +120,6 @@ public class servletReserva extends HttpServlet {
         Cliente c = (Cliente) request.getSession().getAttribute("clientes");
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
         Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
-        
 
         //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
         Reserva reserva = new Reserva(id, c.getNombre(), hoy, c, est, mesa, usuario);
@@ -142,7 +144,7 @@ public class servletReserva extends HttpServlet {
         int id = pedidoFacade.ultimoId();
         java.util.Date hoy = new Date();
         Boleta boleta = (Boleta) request.getSession().getAttribute("boleta");
-        Boleta b =boletaFacade.find(boleta.getId());
+        Boleta b = boletaFacade.find(boleta.getId());
         Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
         Reserva r = reservaFacade.find(reserva.getId());
         Estado estado = new Estado(2);
@@ -154,9 +156,9 @@ public class servletReserva extends HttpServlet {
             pedidoFacade.create(pedido);
             response.sendRedirect("pedido.jsp");
         } catch (Exception e) {
-        
+
             response.sendRedirect("pedido.jsp");
-            
+
         }
 
     }
@@ -177,6 +179,22 @@ public class servletReserva extends HttpServlet {
             response.sendRedirect("cliente.jsp");
         } catch (Exception e) {
         }
+
+    }
+
+    private void pagar(HttpServletRequest request, HttpServletResponse response) {
+
+        Boleta boleta = (Boleta) request.getSession().getAttribute("boleta");
+        Boleta b = boletaFacade.find(boleta.getId());
+        java.util.Date hoy = new Date();
+        Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+        Reserva r = reservaFacade.find(reserva.getId());
+        int total = boletaFacade.total(r.getId());
+        EstadoBoleta estadoBoleta=b.getEstadoId();
+        ModoPago mp = new ModoPago();
+        //  nt id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
+        Boleta bo = new Boleta(b.getId(), hoy, total, estadoBoleta, mp);
+        boletaFacade.edit(bo);
 
     }
 

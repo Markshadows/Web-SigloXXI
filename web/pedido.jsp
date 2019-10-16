@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <td><input type="submit" name="btnAccion" value="pedir"></td>
-                                <td></td>
+                                <td><input type="submit" name="btnAccion" value="pagar"></td>
                             </tr>
 
                         </table>
@@ -104,15 +104,6 @@
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
 
 
 

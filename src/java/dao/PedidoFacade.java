@@ -30,15 +30,33 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
     public PedidoFacade() {
         super(Pedido.class);
     }
-    
-       public List<Object> carrito(int v) {
+
+    public List<Object> carrito(int v) {
         try {
-            Query query = em.createQuery("SELECT  m.nombre, e.nombre FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re WHERE re.id ="+v+"");
+            Query query = em.createQuery("SELECT  m.nombre, e.nombre,m.precio FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re WHERE re.id =" + v + "");
             return query.getResultList();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-    
+
+    public List<Object> valores(int v) {
+        try {
+            Query query = em.createQuery("SELECT sum(M.precio*0.81),sum(M.precio*0.19) ,sum(M.precio) FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + 1 + "");
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public int ultimoId() {
+        Query query = em.createQuery("SELECT MAX(b.id)+1 FROM Pedido b");
+        return (int) query.getSingleResult();
+    }
+
+   
+
+
 }

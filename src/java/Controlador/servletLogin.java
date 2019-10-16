@@ -8,7 +8,6 @@ package Controlador;
 import dao.UsuarioFacade;
 import dto.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +23,7 @@ public class servletLogin extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
+
 
 
 

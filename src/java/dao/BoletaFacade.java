@@ -29,9 +29,28 @@ public class BoletaFacade extends AbstractFacade<Boleta> {
     public BoletaFacade() {
         super(Boleta.class);
     }
-    
-     public int ultimoId() {
+
+    public int ultimoId() {
         Query query = em.createQuery("SELECT MAX(b.id)+1 FROM Boleta b");
         return (int) query.getSingleResult();
+    }
+
+    public int neto(int v) {
+        Query query = em.createQuery("SELECT sum(M.precio*0.81)FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + 1 + "");
+        return (int) query.getSingleResult();
+    }
+
+    public int iva(int v) {
+
+        Query query = em.createQuery("SELECT sum(M.precio*0.19) FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + 1 + "");
+        return (int) query.getSingleResult();
+
+    }
+
+    public int total(int v) {
+
+        Query query = em.createQuery("SELECT sum(M.precio) FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + 1 + "");
+        return (int) query.getSingleResult();
+
     }
 }

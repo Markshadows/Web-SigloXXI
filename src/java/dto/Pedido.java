@@ -41,7 +41,7 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
-    private BigDecimal id;
+    private int id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "CREATED_AT")
@@ -63,20 +63,30 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(BigDecimal id) {
+    public Pedido(int id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.boletaId = boletaId;
+        this.estadoId = estadoId;
+        this.menuId = menuId;
+        this.reservaId = reservaId;
+    }
+
+    
+    public Pedido(int id) {
         this.id = id;
     }
 
-    public Pedido(BigDecimal id, Date createdAt) {
+    public Pedido(int id, Date createdAt) {
         this.id = id;
         this.createdAt = createdAt;
     }
 
-    public BigDecimal getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -120,25 +130,28 @@ public class Pedido implements Serializable {
         this.reservaId = reservaId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pedido)) {
-            return false;
-        }
-        Pedido other = (Pedido) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+    
+    
+    
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Pedido)) {
+//            return false;
+//        }
+//        Pedido other = (Pedido) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     @Override
     public String toString() {
