@@ -24,26 +24,18 @@ public class servletLogin extends HttpServlet {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-
-
-
-  
-    
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
 //        HttpSession sesion = request.getSession();
 //        sesion.invalidate();
         //response.sendRedirect("index.jsp");
-
         String opcion = request.getParameter("btnAccion");
 
         if (opcion.equals("ingresar")) {
             ingresar(request, response);
         }
-    
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,8 +77,8 @@ public class servletLogin extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException  {
-            //   HttpSession sesion = request.getSession();
+    private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //   HttpSession sesion = request.getSession();
         String user = request.getParameter("txtCorreo");
         String pass = request.getParameter("txtPass");
 
@@ -96,13 +88,15 @@ public class servletLogin extends HttpServlet {
         switch (usu.getRolId().getId()) {
             case 1:
                 response.sendRedirect("administrador.jsp");
-            
+                request.getSession().setAttribute("usuarios", usu);
                 break;
             case 3:
                 response.sendRedirect("mesa.jsp");
+                request.getSession().setAttribute("usuarios", usu);
                 break;
             case 6:
                 response.sendRedirect("reservas.jsp");
+                request.getSession().setAttribute("usuarios", usu);
                 break;
             default:
                 request.getRequestDispatcher("login.jsp");

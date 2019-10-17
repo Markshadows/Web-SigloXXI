@@ -114,29 +114,29 @@ public class servletReserva extends HttpServlet {
     }// </editor-fold>
 
     private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = reservaFacade.ultimoId();
-        java.util.Date hoy = new Date();
-        Estado est = new Estado(1);
-        Cliente c = (Cliente) request.getSession().getAttribute("clientes");
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
-        Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
-
-        //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
-        Reserva reserva = new Reserva(id, c.getNombre(), hoy, c, est, mesa, usuario);
-        try {
-            reservaFacade.create(reserva);
-            request.getSession().setAttribute("reserva", reserva);
-            int idB = boletaFacade.ultimoId();
-            ModoPago pago = new ModoPago(1);
-            EstadoBoleta eb = new EstadoBoleta(1);
-            Boleta boleta = new Boleta(idB, hoy, 0, eb, pago);
-            request.getSession().setAttribute("boleta", boleta);
-            boletaFacade.create(boleta);
-            response.sendRedirect("pedido.jsp");
-            //request.getRequestDispatcher("agregarPedido.jsp").forward(request, response);
-        } catch (IOException e) {
-            response.sendRedirect("mesa.jsp");
-        }
+//        int id = reservaFacade.ultimoId();
+//        java.util.Date hoy = new Date();
+//        Estado est = new Estado(1);
+//        Cliente c = (Cliente) request.getSession().getAttribute("clientes");
+//        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
+//        Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
+//
+//        //int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario
+//        Reserva reserva = new Reserva(id, c.getNombre(), hoy, c, est, mesa, usuario);
+//        try {
+//            reservaFacade.create(reserva);
+//            request.getSession().setAttribute("rese", reserva);
+//            int idB = boletaFacade.ultimoId();
+//            ModoPago pago = new ModoPago(1);
+//            EstadoBoleta eb = new EstadoBoleta(1);
+//            Boleta boleta = new Boleta(idB, hoy, 0, eb, pago);
+//            request.getSession().setAttribute("boleta", boleta);
+//            boletaFacade.create(boleta);
+//            response.sendRedirect("pedido.jsp");
+//            //request.getRequestDispatcher("agregarPedido.jsp").forward(request, response);
+//        } catch (IOException e) {
+//            response.sendRedirect("mesa.jsp");
+//        }
     }
 
     private void pedir(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -145,7 +145,7 @@ public class servletReserva extends HttpServlet {
         java.util.Date hoy = new Date();
         Boleta boleta = (Boleta) request.getSession().getAttribute("boleta");
         Boleta b = boletaFacade.find(boleta.getId());
-        Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+        Reserva reserva = (Reserva)request.getSession().getAttribute("rese");
         Reserva r = reservaFacade.find(reserva.getId());
         Estado estado = new Estado(2);
         int menu = Integer.parseInt(request.getParameter("cboMenu"));

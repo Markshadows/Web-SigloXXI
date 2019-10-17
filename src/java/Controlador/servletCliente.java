@@ -106,6 +106,7 @@ public class servletCliente extends HttpServlet {
     private void ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         //DATOS CLIENTE
+        //
         int id = clienteFacade.ultimoId();
         String rut = request.getParameter("txtRut");
         String nombre = request.getParameter("txtNombre");
@@ -113,6 +114,7 @@ public class servletCliente extends HttpServlet {
         Cliente cliente = new Cliente(id, rut, nombre, est);
         Cliente test = clienteFacade.existe(rut);
         //RESERVA DATOS
+        //
         int idReserva = reservaFacade.ultimoId();
         java.util.Date hoy = new Date();
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
@@ -120,7 +122,7 @@ public class servletCliente extends HttpServlet {
         Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
         Mesa mesese = mesaFacade.find(mesa.getId());
         //  Mesa mesa2 = new Mesa(1);
-
+        //
         int idBoleta = boletaFacade.ultimoId();
         ModoPago pago = new ModoPago(1);
         EstadoBoleta eb = new EstadoBoleta(1);

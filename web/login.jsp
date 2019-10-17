@@ -109,11 +109,7 @@
                                     <input type="submit" class="btn btn-primary btn-block" name="btnAccion" value="ingresar">
                                 </div>
                             </div>
-                            <c:if test="${error}">
-                                <div class="alert alert-warning">
-                                    Credenciales incorrectas
-                                </div>
-                            </c:if>
+                       
 
                         </form>
                     </div>
