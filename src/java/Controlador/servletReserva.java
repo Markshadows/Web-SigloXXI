@@ -166,6 +166,7 @@ public class servletReserva extends HttpServlet {
         request.getSession().setAttribute("carrito", pedidoFacade.carrito(1));
         request.getSession().setAttribute("val", pedidoFacade.valores(1));
         request.getSession().setAttribute("me", mesaFacade.mesahabilitada());
+        request.getSession().setAttribute("secuencia", pedidoFacade.secuenciaId());
 
     }
 

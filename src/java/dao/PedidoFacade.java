@@ -6,6 +6,7 @@
 package dao;
 
 import dto.Pedido;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,7 +57,10 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
         return (int) query.getSingleResult();
     }
 
-   
+    public BigDecimal secuenciaId() {
+        Query q = em.createNativeQuery("SELECT SEQ_PEDIDO_IDPEDIDO.NEXTVAL FROM DUAL");
 
+        return (BigDecimal) q.getSingleResult();
+    }
 
 }

@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-
+${secuencia}
 
     </body>
     <%@include file="footer.jsp"  %>
