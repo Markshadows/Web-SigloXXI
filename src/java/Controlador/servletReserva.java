@@ -144,14 +144,12 @@ public class servletReserva extends HttpServlet {
         int id = pedidoFacade.ultimoId();
         java.util.Date hoy = new Date();
         Boleta boleta = (Boleta) request.getSession().getAttribute("boleta");
-        Boleta b = boletaFacade.find(boleta.getId());
         Reserva reserva = (Reserva)request.getSession().getAttribute("rese");
-        Reserva r = reservaFacade.find(reserva.getId());
         Estado estado = new Estado(2);
         int menu = Integer.parseInt(request.getParameter("cboMenu"));
         Menu m = new Menu(menu);
         //nt id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId)
-        Pedido pedido = new Pedido(id, hoy, b, estado, m, r);
+        Pedido pedido = new Pedido(id, hoy, boleta, estado, m, reserva);
         try {
             pedidoFacade.create(pedido);
             response.sendRedirect("pedido.jsp");
