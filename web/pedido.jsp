@@ -69,7 +69,10 @@
                             </c:forEach>
                         </tbody>
                     </table>
-
+                    <div class="jumbotron">
+                        ${rese.getNombre()}
+                        ${clientes.getNombre()}
+                    </div>
 
                 </div>
             </div>

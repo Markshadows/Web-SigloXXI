@@ -31,8 +31,13 @@ public class BoletaFacade extends AbstractFacade<Boleta> {
     }
 
     public int ultimoId() {
-        Query query = em.createQuery("SELECT MAX(b.id)+1 FROM Boleta b");
-        return (int) query.getSingleResult();
+        try {
+            Query query = em.createQuery("SELECT MAX(b.id)+1 FROM Boleta b");
+            return (int) query.getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     public int neto(int v) {

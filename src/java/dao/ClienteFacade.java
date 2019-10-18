@@ -31,18 +31,23 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     }
 
     public int ultimoId() {
-        Query query = em.createQuery("SELECT MAX(c.id)+1 FROM Cliente c");
-        return (int) query.getSingleResult();
+        try {
+            Query query = em.createQuery("SELECT MAX(c.id)+1 FROM Cliente c");
+            return (int) query.getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     public Cliente existe(String rut) {
         try {
-              Query q = em.createQuery("SELECT C FROM Cliente C WHERE c.rut='"+rut+"'");
-        return (Cliente)q.getSingleResult();
+            Query q = em.createQuery("SELECT C FROM Cliente C WHERE c.rut='" + rut + "'");
+            return (Cliente) q.getSingleResult();
         } catch (Exception e) {
-            return  null;
+            return null;
         }
-      
+
     }
 
 }

@@ -140,31 +140,34 @@ public class servletReserva extends HttpServlet {
     }
 
     private void pedir(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        int id = pedidoFacade.ultimoId();
-        java.util.Date hoy = new Date();
-        Boleta boleta = (Boleta) request.getSession().getAttribute("boleta");
-        Reserva reserva = (Reserva)request.getSession().getAttribute("rese");
-        Estado estado = new Estado(2);
-        int menu = Integer.parseInt(request.getParameter("cboMenu"));
-        Menu m = new Menu(menu);
-        //nt id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId)
-        Pedido pedido = new Pedido(id, hoy, boleta, estado, m, reserva);
+       int pedidoId= pedidoFacade.ultimoId();
+       java.util.Date hoy = new  Date();
+       Boleta b = (Boleta)request.getSession().getAttribute("boletas");
+       Boleta boleta = boletaFacade.find(b.getId());
+       Estado estado = new Estado(1);
+       int m= Integer.parseInt(request.getParameter("cboMenu"));
+       Menu menu =new Menu(m);
+       Reserva r = (Reserva)request.getSession().getAttribute("reserva");
+       Reserva reserva = reservaFacade.find(r.getClass());
+       Pedido pedido = new Pedido(pedidoId, hoy, boleta, estado, menu, reserva);
+       
         try {
-            pedidoFacade.create(pedido);
-            response.sendRedirect("pedido.jsp");
+       reservaFacade.create(reserva);
+       response.sendRedirect("Pedodo.jsp");
         } catch (Exception e) {
-
-            response.sendRedirect("pedido.jsp");
-
+            request.getSession().setAttribute("Error", "Error al ingresar pedido");
         }
-
+       
+       
+       //int id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId        
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute("menus", menuFacade.findAll());
-        request.getSession().setAttribute("carrito", pedidoFacade.carrito(1));
-        request.getSession().setAttribute("val", pedidoFacade.valores(1));
+        Reserva reserva=(Reserva)request.getSession().getAttribute("reserva");
+        Reserva r=reservaFacade.find(reserva.getId());
+        request.getSession().setAttribute("carrito", pedidoFacade.carrito(r.getId()));
+        request.getSession().setAttribute("val", pedidoFacade.valores(r.getId()));
         request.getSession().setAttribute("me", mesaFacade.mesahabilitada());
 
     }

@@ -29,9 +29,14 @@ public class ReservaFacade extends AbstractFacade<Reserva> {
     public ReservaFacade() {
         super(Reserva.class);
     }
-    
+
     public int ultimoId() {
-        Query query = em.createQuery("SELECT MAX(r.id)+1 FROM Reserva r");
-        return (int) query.getSingleResult();
+        try {
+            Query query = em.createQuery("SELECT MAX(r.id)+1 FROM Reserva r");
+            return (int) query.getSingleResult();
+        } catch (Exception e) {
+            return 1;
+        }
+
     }
 }
