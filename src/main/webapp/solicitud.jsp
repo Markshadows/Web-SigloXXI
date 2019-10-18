@@ -17,7 +17,7 @@
     <body>
 
 
-
+         <jsp:include page="/BodegaServlet" />
 
 
         <c:if test="${!empty mensaje}" >
@@ -40,40 +40,28 @@
                     <th>mensaje</th>
                     <th>Productos</th>
                     <th>estado</th>
-
                 </tr>
-
             </thead>
             <tbody>
-                <c:forEach var="item" items="${listaDeSolicitudes}">
+                <c:forEach var="item2" items="${listaDeSolicitudes}">
                     <tr>
-                        <td>${item.idSolicitud}</td>
-                        <td>${item.asunto}</td>
-                        <td>${item.mensaje}</td>
+                        <td>${item2.idSolicitud}</td>
+                        <td>${item2.asunto}</td>
+                        <td>${item2.mensaje}</td>
                         <td>
-                            
-                            <c:forEach var="x" items="${item.productoSolicitudList}">
-                                <%--${x.productoId}--%>
-                                
+                            <c:forEach var="x" items="${item2.productoSolicitudList}">
                                 <p>
                                     ${x.productoId.nombre}
                                     Con un stock de:
                                     ${x.productoId.metricaId.peso}
                                     ${x.productoId.metricaId.medida}
                                 </p>
-                                
-                                <%--
-                                <c:forEach var="y" items=" ${x.productoId}">
-                                     ${y}
-                                </c:forEach>
-                                --%>
+
                             </c:forEach>
                         </td>
-                        <td>${item.estadoSolicitud.descripcion}</td>
+                        <td>${item2.estadoSolicitud.descripcion}</td>
                     </tr>
-
                 </c:forEach>
-
             </tbody>
         </table>
 
@@ -83,7 +71,7 @@
 
         <form action="BodegaServlet" method="POST">
             <h1>Formulario Enviar Solicitud</h1> 
-            <jsp:include page="/BodegaServlet" />
+           
 
             <table border="1">
                 <thead>
@@ -125,11 +113,16 @@
 
 
 
-
             <input type="submit" name="btnAccion" value="Enviar" >
-
-
         </form>
+
+
+
+
+
+
+
+
 
 
 
