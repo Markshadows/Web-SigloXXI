@@ -148,11 +148,11 @@ public class servletReserva extends HttpServlet {
        int m= Integer.parseInt(request.getParameter("cboMenu"));
        Menu menu =new Menu(m);
        Reserva r = (Reserva)request.getSession().getAttribute("reserva");
-       Reserva reserva = reservaFacade.find(r.getClass());
+       Reserva reserva = reservaFacade.find(r.getId());
        Pedido pedido = new Pedido(pedidoId, hoy, boleta, estado, menu, reserva);
        
         try {
-       reservaFacade.create(reserva);
+       pedidoFacade.create(pedido);
        response.sendRedirect("Pedodo.jsp");
         } catch (Exception e) {
             request.getSession().setAttribute("Error", "Error al ingresar pedido");
@@ -164,10 +164,10 @@ public class servletReserva extends HttpServlet {
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute("menus", menuFacade.findAll());
-        Reserva reserva=(Reserva)request.getSession().getAttribute("reserva");
-        Reserva r=reservaFacade.find(reserva.getId());
-        request.getSession().setAttribute("carrito", pedidoFacade.carrito(r.getId()));
-        request.getSession().setAttribute("val", pedidoFacade.valores(r.getId()));
+     //   Reserva reserva=(Reserva)request.getSession().getAttribute("reserva");
+     //   Reserva r=reservaFacade.find(reserva.getId());
+     //   request.getSession().setAttribute("carrito", pedidoFacade.carrito(r.getId()));
+      //  request.getSession().setAttribute("val", pedidoFacade.valores(r.getId()));
         request.getSession().setAttribute("me", mesaFacade.mesahabilitada());
 
     }

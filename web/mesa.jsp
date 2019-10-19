@@ -57,7 +57,7 @@
                                         
                                         <select name="cboMesa" class="form-control-plaintext " >
                                     <c:forEach var="item" items="${me}">
-                                        <option value="${item.id}" >mesa ${item.numero} con cantidad ${item.sillas} sillas</option>
+                                        <option value="${item.id}" >mesa ${item.numero} con ${item.sillas} sillas</option>
                                     </c:forEach>
                                         </select>
                                 </div>
