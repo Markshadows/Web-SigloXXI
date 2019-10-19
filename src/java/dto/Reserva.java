@@ -65,11 +65,11 @@ public class Reserva implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "USUARIO_ID")
-    private BigInteger usuarioId;
+    private int usuarioId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ESTADO_ID")
-    private BigInteger estadoId;
+    private int estadoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservaId")
     private List<Pedido> pedidoList;
     @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
@@ -102,6 +102,19 @@ public class Reserva implements Serializable {
         this.usuario = usuario;
     }
 
+    public Reserva(int id, String nombre, Date createdAt, int usuarioId, int estadoId, Cliente clienteId, Mesa mesaId) {
+        this.id = id;
+        this.nombre = nombre;
+         this.createdAt = createdAt;
+        this.usuarioId = usuarioId;
+        this.estadoId = estadoId;
+        this.clienteId = clienteId;
+        this.mesaId = mesaId;
+    }
+    
+    
+    
+
     public int getId() {
         return id;
     }
@@ -126,19 +139,19 @@ public class Reserva implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public BigInteger getUsuarioId() {
+    public int getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(BigInteger usuarioId) {
+    public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
     }
 
-    public BigInteger getEstadoId() {
+    public int getEstadoId() {
         return estadoId;
     }
 
-    public void setEstadoId(BigInteger estadoId) {
+    public void setEstadoId(int estadoId) {
         this.estadoId = estadoId;
     }
 

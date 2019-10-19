@@ -121,7 +121,7 @@ public class servletCliente extends HttpServlet {
                 Usuario usu = usuarioFacade.find(usuario.getId());
                 Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
                 Mesa me = mesaFacade.find(mesa.getId());
-                Reserva reserva = new Reserva(reservaID, cliente.getNombre(), hoy, cliente, estado, me, usu);
+                Reserva reserva = new Reserva(reservaID, cliente.getNombre(), hoy, usuario.getId(), estado.getId(), cliente, me);
                 reservaFacade.create(reserva);
                 request.getSession().setAttribute("reserva", reserva);
                 //int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
