@@ -161,7 +161,8 @@ public class servletCliente extends HttpServlet {
             request.getSession().setAttribute("cerror","no se pudo registrar");
             response.sendRedirect("cliente.jsp");
         }
-
+        
+        
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
