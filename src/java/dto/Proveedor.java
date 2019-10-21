@@ -7,7 +7,7 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -86,7 +86,7 @@ public class Proveedor implements Serializable {
     @ManyToOne(optional = false)
     private Giro giroId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedorId")
-    private List<Producto> productoList;
+    private Collection<Producto> productoCollection;
 
     public Proveedor() {
     }
@@ -178,12 +178,12 @@ public class Proveedor implements Serializable {
     }
 
     @XmlTransient
-    public List<Producto> getProductoList() {
-        return productoList;
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
     }
 
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
     }
 
     @Override

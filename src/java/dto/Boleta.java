@@ -8,8 +8,8 @@ package dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -64,13 +64,19 @@ public class Boleta implements Serializable {
     @ManyToOne(optional = false)
     private ModoPago modoPagoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "boletaId")
-    private List<Pedido> pedidoList;
+    private Collection<Pedido> pedidoCollection;
 
     public Boleta() {
     }
 
     public Boleta(int id) {
         this.id = id;
+    }
+
+    public Boleta(int id, Date createdAt, int total) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.total = total;
     }
 
     public Boleta(int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId) {
@@ -80,6 +86,8 @@ public class Boleta implements Serializable {
         this.estadoId = estadoId;
         this.modoPagoId = modoPagoId;
     }
+    
+    
 
     public int getId() {
         return id;
@@ -122,12 +130,12 @@ public class Boleta implements Serializable {
     }
 
     @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
     }
 
 //    @Override

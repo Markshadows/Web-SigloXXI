@@ -63,6 +63,10 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
+    public Pedido(int id) {
+        this.id = id;
+    }
+
     public Pedido(int id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId) {
         this.id = id;
         this.createdAt = createdAt;
@@ -71,11 +75,7 @@ public class Pedido implements Serializable {
         this.menuId = menuId;
         this.reservaId = reservaId;
     }
-
     
-    public Pedido(int id) {
-        this.id = id;
-    }
 
     public Pedido(int id, Date createdAt) {
         this.id = id;
@@ -130,9 +130,6 @@ public class Pedido implements Serializable {
         this.reservaId = reservaId;
     }
 
-    
-    
-    
 //    @Override
 //    public int hashCode() {
 //        int hash = 0;

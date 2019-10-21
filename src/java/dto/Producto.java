@@ -6,7 +6,7 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,7 +54,7 @@ public class Producto implements Serializable {
     @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
-    private List<ProductoSolicitud> productoSolicitudList;
+    private Collection<ProductoSolicitud> productoSolicitudCollection;
     @JoinColumn(name = "METRICA_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Metrica metricaId;
@@ -62,9 +62,9 @@ public class Producto implements Serializable {
     @ManyToOne(optional = false)
     private Proveedor proveedorId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
-    private List<Ingrediente> ingredienteList;
+    private Collection<Ingrediente> ingredienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
-    private List<Ingreso> ingresoList;
+    private Collection<Ingreso> ingresoCollection;
 
     public Producto() {
     }
@@ -104,12 +104,12 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
-    public List<ProductoSolicitud> getProductoSolicitudList() {
-        return productoSolicitudList;
+    public Collection<ProductoSolicitud> getProductoSolicitudCollection() {
+        return productoSolicitudCollection;
     }
 
-    public void setProductoSolicitudList(List<ProductoSolicitud> productoSolicitudList) {
-        this.productoSolicitudList = productoSolicitudList;
+    public void setProductoSolicitudCollection(Collection<ProductoSolicitud> productoSolicitudCollection) {
+        this.productoSolicitudCollection = productoSolicitudCollection;
     }
 
     public Metrica getMetricaId() {
@@ -129,21 +129,21 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
-    public List<Ingrediente> getIngredienteList() {
-        return ingredienteList;
+    public Collection<Ingrediente> getIngredienteCollection() {
+        return ingredienteCollection;
     }
 
-    public void setIngredienteList(List<Ingrediente> ingredienteList) {
-        this.ingredienteList = ingredienteList;
+    public void setIngredienteCollection(Collection<Ingrediente> ingredienteCollection) {
+        this.ingredienteCollection = ingredienteCollection;
     }
 
     @XmlTransient
-    public List<Ingreso> getIngresoList() {
-        return ingresoList;
+    public Collection<Ingreso> getIngresoCollection() {
+        return ingresoCollection;
     }
 
-    public void setIngresoList(List<Ingreso> ingresoList) {
-        this.ingresoList = ingresoList;
+    public void setIngresoCollection(Collection<Ingreso> ingresoCollection) {
+        this.ingresoCollection = ingresoCollection;
     }
 
     @Override

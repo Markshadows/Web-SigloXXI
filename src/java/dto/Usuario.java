@@ -8,8 +8,8 @@ package dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -105,10 +104,10 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "ROL_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Rol rolId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Reserva reserva;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
-    private List<Ingreso> ingresoList;
+    private Collection<Reserva> reservaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
+    private Collection<Ingreso> ingresoCollection;
 
     public Usuario() {
     }
@@ -225,23 +224,24 @@ public class Usuario implements Serializable {
         this.rolId = rolId;
     }
 
-    public Reserva getReserva() {
-        return reserva;
+    @XmlTransient
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
 
     @XmlTransient
-    public List<Ingreso> getIngresoList() {
-        return ingresoList;
+    public Collection<Ingreso> getIngresoCollection() {
+        return ingresoCollection;
     }
 
-    public void setIngresoList(List<Ingreso> ingresoList) {
-        this.ingresoList = ingresoList;
+    public void setIngresoCollection(Collection<Ingreso> ingresoCollection) {
+        this.ingresoCollection = ingresoCollection;
     }
-//
+
 //    @Override
 //    public int hashCode() {
 //        int hash = 0;

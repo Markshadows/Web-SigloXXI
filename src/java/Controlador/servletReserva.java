@@ -62,6 +62,9 @@ public class servletReserva extends HttpServlet {
             case "pedir":
                 pedir(request, response);
                 break;
+            case "pago":
+                pago(request, response);
+                break;
             case "mesa":
                 mesa(request, response);
                 break;
@@ -153,9 +156,12 @@ public class servletReserva extends HttpServlet {
        
         try {
        pedidoFacade.create(pedido);
-       response.sendRedirect("Pedodo.jsp");
+       request.getSession().setAttribute("carrito", pedidoFacade.carrito(reserva.getId()));
+       request.getSession().setAttribute("valor", pedidoFacade.valores(reserva.getId()));
+       response.sendRedirect("pedido.jsp");
         } catch (Exception e) {
-            request.getSession().setAttribute("Error", "Error al ingresar pedido");
+            request.getSession().setAttribute("pedido", "Error al ingresar pedido");
+            response.sendRedirect("Pedodo.jsp");
         }
        
        
@@ -197,6 +203,10 @@ public class servletReserva extends HttpServlet {
         Boleta bo = new Boleta(b.getId(), hoy, total, estadoBoleta, mp);
         boletaFacade.edit(bo);
 
+    }
+
+    private void pago(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

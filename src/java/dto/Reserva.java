@@ -7,9 +7,8 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,9 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
     , @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
     , @NamedQuery(name = "Reserva.findByNombre", query = "SELECT r FROM Reserva r WHERE r.nombre = :nombre")
-    , @NamedQuery(name = "Reserva.findByCreatedAt", query = "SELECT r FROM Reserva r WHERE r.createdAt = :createdAt")
-    , @NamedQuery(name = "Reserva.findByUsuarioId", query = "SELECT r FROM Reserva r WHERE r.usuarioId = :usuarioId")
-    , @NamedQuery(name = "Reserva.findByEstadoId", query = "SELECT r FROM Reserva r WHERE r.estadoId = :estadoId")})
+    , @NamedQuery(name = "Reserva.findByCreatedAt", query = "SELECT r FROM Reserva r WHERE r.createdAt = :createdAt")})
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,28 +58,20 @@ public class Reserva implements Serializable {
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "USUARIO_ID")
-    private int usuarioId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ESTADO_ID")
-    private int estadoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservaId")
-    private List<Pedido> pedidoList;
+    private Collection<Pedido> pedidoCollection;
     @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Cliente clienteId;
-    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Estado estado;
+    @JoinColumn(name = "ESTADO_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado estadoId;
     @JoinColumn(name = "MESA_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Mesa mesaId;
-    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Usuario usuario;
+    @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioId;
 
     public Reserva() {
     }
@@ -92,28 +80,23 @@ public class Reserva implements Serializable {
         this.id = id;
     }
 
-    public Reserva(int id, String nombre, Date createdAt, Cliente clienteId, Estado estado, Mesa mesaId, Usuario usuario) {
+    public Reserva(int id, String nombre, Date createdAt, Cliente clienteId, Estado estadoId, Mesa mesaId, Usuario usuarioId) {
         this.id = id;
         this.nombre = nombre;
         this.createdAt = createdAt;
         this.clienteId = clienteId;
-        this.estado = estado;
+        this.estadoId = estadoId;
         this.mesaId = mesaId;
-        this.usuario = usuario;
+        this.usuarioId = usuarioId;
     }
 
-    public Reserva(int id, String nombre, Date createdAt, int usuarioId, int estadoId, Cliente clienteId, Mesa mesaId) {
+    
+    
+    public Reserva(int id, String nombre, Date createdAt) {
         this.id = id;
         this.nombre = nombre;
-         this.createdAt = createdAt;
-        this.usuarioId = usuarioId;
-        this.estadoId = estadoId;
-        this.clienteId = clienteId;
-        this.mesaId = mesaId;
+        this.createdAt = createdAt;
     }
-    
-    
-    
 
     public int getId() {
         return id;
@@ -139,29 +122,13 @@ public class Reserva implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public int getEstadoId() {
-        return estadoId;
-    }
-
-    public void setEstadoId(int estadoId) {
-        this.estadoId = estadoId;
-    }
-
     @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
     }
 
     public Cliente getClienteId() {
@@ -172,12 +139,12 @@ public class Reserva implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Estado getEstadoId() {
+        return estadoId;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setEstadoId(Estado estadoId) {
+        this.estadoId = estadoId;
     }
 
     public Mesa getMesaId() {
@@ -188,14 +155,14 @@ public class Reserva implements Serializable {
         this.mesaId = mesaId;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Usuario usuarioId) {
+        this.usuarioId = usuarioId;
     }
-
+//
 //    @Override
 //    public int hashCode() {
 //        int hash = 0;
@@ -215,9 +182,10 @@ public class Reserva implements Serializable {
 //        }
 //        return true;
 //    }
+
     @Override
     public String toString() {
         return "dto.Reserva[ id=" + id + " ]";
     }
-
+    
 }

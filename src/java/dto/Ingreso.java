@@ -7,8 +7,10 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,6 +51,8 @@ public class Ingreso implements Serializable {
     @Column(name = "INGRESO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ingreso;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIngreso")
+    private Collection<DetalleIngreso> detalleIngresoCollection;
     @JoinColumn(name = "PRODUCTO_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Producto productoId;
@@ -80,6 +86,15 @@ public class Ingreso implements Serializable {
 
     public void setIngreso(Date ingreso) {
         this.ingreso = ingreso;
+    }
+
+    @XmlTransient
+    public Collection<DetalleIngreso> getDetalleIngresoCollection() {
+        return detalleIngresoCollection;
+    }
+
+    public void setDetalleIngresoCollection(Collection<DetalleIngreso> detalleIngresoCollection) {
+        this.detalleIngresoCollection = detalleIngresoCollection;
     }
 
     public Producto getProductoId() {

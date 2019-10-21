@@ -7,7 +7,7 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -49,19 +48,19 @@ public class Estado implements Serializable {
     @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<Mesa> mesaList;
+    private Collection<Mesa> mesaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<Proveedor> proveedorList;
+    private Collection<Proveedor> proveedorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<Cliente> clienteList;
+    private Collection<Cliente> clienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<Usuario> usuarioList;
+    private Collection<Usuario> usuarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoId")
-    private List<Pedido> pedidoList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "estado")
-    private Reserva reserva;
+    private Collection<Pedido> pedidoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoId")
+    private Collection<Reserva> reservaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
-    private List<Menu> menuList;
+    private Collection<Menu> menuCollection;
 
     public Estado() {
     }
@@ -92,65 +91,66 @@ public class Estado implements Serializable {
     }
 
     @XmlTransient
-    public List<Mesa> getMesaList() {
-        return mesaList;
+    public Collection<Mesa> getMesaCollection() {
+        return mesaCollection;
     }
 
-    public void setMesaList(List<Mesa> mesaList) {
-        this.mesaList = mesaList;
-    }
-
-    @XmlTransient
-    public List<Proveedor> getProveedorList() {
-        return proveedorList;
-    }
-
-    public void setProveedorList(List<Proveedor> proveedorList) {
-        this.proveedorList = proveedorList;
+    public void setMesaCollection(Collection<Mesa> mesaCollection) {
+        this.mesaCollection = mesaCollection;
     }
 
     @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
+    public Collection<Proveedor> getProveedorCollection() {
+        return proveedorCollection;
     }
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setProveedorCollection(Collection<Proveedor> proveedorCollection) {
+        this.proveedorCollection = proveedorCollection;
     }
 
     @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Collection<Cliente> getClienteCollection() {
+        return clienteCollection;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+        this.clienteCollection = clienteCollection;
     }
 
     @XmlTransient
-    public List<Menu> getMenuList() {
-        return menuList;
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
     }
 
-    public void setMenuList(List<Menu> menuList) {
-        this.menuList = menuList;
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
+    }
+
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Menu> getMenuCollection() {
+        return menuCollection;
+    }
+
+    public void setMenuCollection(Collection<Menu> menuCollection) {
+        this.menuCollection = menuCollection;
     }
 
 //    @Override

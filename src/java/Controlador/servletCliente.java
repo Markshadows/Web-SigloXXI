@@ -117,11 +117,12 @@ public class servletCliente extends HttpServlet {
                 request.getSession().setAttribute("clientes", cliente);
                 int reservaID = reservaFacade.ultimoId();
                 java.util.Date hoy = new Date();
-                Usuario usuario = (Usuario)request.getSession().getAttribute("usuarios");
+                Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
                 Usuario usu = usuarioFacade.find(usuario.getId());
                 Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
                 Mesa me = mesaFacade.find(mesa.getId());
-                Reserva reserva = new Reserva(reservaID, cliente.getNombre(), hoy, usuario.getId(), estado.getId(), cliente, me);
+                Reserva reserva = new Reserva(reservaID, cliente.getNombre(), hoy, cliente, estado, me, usu);
+                        
                 reservaFacade.create(reserva);
                 request.getSession().setAttribute("reserva", reserva);
                 //int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
@@ -137,11 +138,12 @@ public class servletCliente extends HttpServlet {
                 request.getSession().setAttribute("clientes", test);
                 int reservaID = reservaFacade.ultimoId();
                 java.util.Date hoy = new Date();
-                Usuario usuario = (Usuario)request.getSession().getAttribute("usuarios");
+                Usuario usuario = (Usuario) request.getSession().getAttribute("usuarios");
                 Usuario usu = usuarioFacade.find(usuario.getId());
                 Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
                 Mesa me = mesaFacade.find(mesa.getId());
-                Reserva reserva = new Reserva(reservaID, test.getNombre(), hoy, test, estado, me, usu);
+                Estado est = new Estado(1);
+                Reserva reserva = new Reserva(reservaID, test.getNombre(), hoy, test, est, me, usu);
                 reservaFacade.create(reserva);
                 request.getSession().setAttribute("reserva", reserva);
                 //int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
@@ -156,6 +158,7 @@ public class servletCliente extends HttpServlet {
 
             }
         } catch (Exception e) {
+            request.getSession().setAttribute("cerror","no se pudo registrar");
             response.sendRedirect("cliente.jsp");
         }
 

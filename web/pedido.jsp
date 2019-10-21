@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <td><input type="submit" name="btnAccion" value="pedir"></td>
-                                <td><input type="submit" name="btnAccion" value="pagar"></td>
+                                <td><input type="submit" name="btnAccion" value="pago"></td>
                             </tr>
 
                         </table>
@@ -46,64 +46,70 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="col ">
-                <div class="container">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>nombre</th>
-                                <th>precio</th>
-                                <th>estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <c:forEach var="item2" items="${carrito}">
+    
+            <div class="col-sm-6">
+                <div class="col ">
+                    <div class="container">
+                        <c:forEach var="item2" items="${carrito}">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>${item2[0]}</td>
-                                    <td>${item2[1]}</td>
-                                    <td>${item2[2]}</td>
+                                    <th>nombre</th>
+                                    <th>precio</th>
+                                    <th>estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                
+                                    <tr>
+                                        <td>${item2[0]}</td>
+                                        <td>${item2[1]}</td>
+                                        <td>${item2[2]}</td>
+                                    </tr>
+
+                                
+                            </tbody>
+                        </table>
+                                    </c:forEach>
+                        <div class="jumbotron">
+                            ${rese.getNombre()}
+                            ${clientes.getNombre()}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+      
+
+
+            <div class="col-sm-3">
+                <div class="col ">
+                    <div class="container">
+                        <table class="table table-striped">
+
+                            <c:forEach var="item3" items="${valor}">
+                                <tr>
+                                    <td>neto</td>
+                                    <td>${item3[0]}</td>
+                                </tr>
+                                <tr>
+                                    <td>total</td>
+                                    <td>${item3[2]}</td>
+                                </tr>
+                                <tr>
+                                    <td>iva</td>
+                                    <td>${item3[1]}</td>
                                 </tr>
 
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="jumbotron">
-                        ${rese.getNombre()}
-                        ${clientes.getNombre()}
+                            </table>
+                        </c:forEach>
+
+
                     </div>
-
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="col ">
-                <div class="container">
-                    <table class="table table-striped">
-
-                        <c:forEach var="item3" items="${val}">
-                            <tr>
-                                <td>neto</td>
-                                <td>${item3[0]}</td>
-                            </tr>
-                           <tr>
-                                <td>total</td>
-                                <td>${item3[2]}</td>
-                            </tr>
-                              <tr>
-                                <td>iva</td>
-                                <td>${item3[1]}</td>
-                            </tr>
-
-                        </table>
-                    </c:forEach>
-
-
-                </div>
-            </div>
-        </div>
-
+        
     </div>
 
 </div>

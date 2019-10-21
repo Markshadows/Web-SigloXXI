@@ -70,7 +70,11 @@
             </div>
 
 
-
+            <c:if test="${cerror!=null}">
+                <div class="alert alert-danger">
+                    <strong>${cerror}<strong> 
+                </div>
+            </c:if>
     </body>
     <%@include file="footer.jsp"  %>
 </html>

@@ -7,7 +7,7 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,7 +59,7 @@ public class Cliente implements Serializable {
     @ManyToOne(optional = false)
     private Estado estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
-    private List<Reserva> reservaList;
+    private Collection<Reserva> reservaCollection;
 
     public Cliente() {
     }
@@ -75,7 +75,11 @@ public class Cliente implements Serializable {
         this.estado = estado;
     }
 
-   
+    public Cliente(int id, String rut, String nombre) {
+        this.id = id;
+        this.rut = rut;
+        this.nombre = nombre;
+    }
 
     public int getId() {
         return id;
@@ -110,12 +114,12 @@ public class Cliente implements Serializable {
     }
 
     @XmlTransient
-    public List<Reserva> getReservaList() {
-        return reservaList;
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
     }
 
-    public void setReservaList(List<Reserva> reservaList) {
-        this.reservaList = reservaList;
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
 
 //    @Override

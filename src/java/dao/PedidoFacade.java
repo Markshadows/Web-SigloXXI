@@ -43,7 +43,7 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
 
     public List<Object> valores(int v) {
         try {
-            Query query = em.createQuery("SELECT sum(M.precio*0.81),sum(M.precio*0.19) ,sum(M.precio) FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + 1 + "");
+            Query query = em.createQuery("SELECT sum(M.precio*0.81),sum(M.precio*0.19) ,sum(M.precio) FROM Pedido p JOIN p.menuId m JOIN p.estadoId e  JOIN p.reservaId re  WHERE re.id=" + v + "");
             return query.getResultList();
         } catch (Exception e) {
             System.out.println(e.getMessage());

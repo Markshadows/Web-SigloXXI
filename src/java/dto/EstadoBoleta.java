@@ -7,7 +7,7 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,7 +46,7 @@ public class EstadoBoleta implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoId")
-    private List<Boleta> boletaList;
+    private Collection<Boleta> boletaCollection;
 
     public EstadoBoleta() {
     }
@@ -72,14 +72,14 @@ public class EstadoBoleta implements Serializable {
     }
 
     @XmlTransient
-    public List<Boleta> getBoletaList() {
-        return boletaList;
+    public Collection<Boleta> getBoletaCollection() {
+        return boletaCollection;
     }
 
-    public void setBoletaList(List<Boleta> boletaList) {
-        this.boletaList = boletaList;
+    public void setBoletaCollection(Collection<Boleta> boletaCollection) {
+        this.boletaCollection = boletaCollection;
     }
-
+//
 //    @Override
 //    public int hashCode() {
 //        int hash = 0;

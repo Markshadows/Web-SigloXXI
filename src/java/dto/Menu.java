@@ -8,7 +8,7 @@ package dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,9 +62,9 @@ public class Menu implements Serializable {
     @Column(name = "URL")
     private String url;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuId")
-    private List<Pedido> pedidoList;
+    private Collection<Pedido> pedidoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuId")
-    private List<Ingrediente> ingredienteList;
+    private Collection<Ingrediente> ingredienteCollection;
     @JoinColumn(name = "ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
@@ -116,21 +116,21 @@ public class Menu implements Serializable {
     }
 
     @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
     }
 
     @XmlTransient
-    public List<Ingrediente> getIngredienteList() {
-        return ingredienteList;
+    public Collection<Ingrediente> getIngredienteCollection() {
+        return ingredienteCollection;
     }
 
-    public void setIngredienteList(List<Ingrediente> ingredienteList) {
-        this.ingredienteList = ingredienteList;
+    public void setIngredienteCollection(Collection<Ingrediente> ingredienteCollection) {
+        this.ingredienteCollection = ingredienteCollection;
     }
 
     public Estado getEstado() {

@@ -8,7 +8,7 @@ package dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,9 +54,9 @@ public class Metrica implements Serializable {
     @Column(name = "MEDIDA")
     private String medida;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "metricaId")
-    private List<Producto> productoList;
+    private Collection<Producto> productoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "metricaId")
-    private List<Ingrediente> ingredienteList;
+    private Collection<Ingrediente> ingredienteCollection;
 
     public Metrica() {
     }
@@ -96,21 +96,21 @@ public class Metrica implements Serializable {
     }
 
     @XmlTransient
-    public List<Producto> getProductoList() {
-        return productoList;
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
     }
 
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
     }
 
     @XmlTransient
-    public List<Ingrediente> getIngredienteList() {
-        return ingredienteList;
+    public Collection<Ingrediente> getIngredienteCollection() {
+        return ingredienteCollection;
     }
 
-    public void setIngredienteList(List<Ingrediente> ingredienteList) {
-        this.ingredienteList = ingredienteList;
+    public void setIngredienteCollection(Collection<Ingrediente> ingredienteCollection) {
+        this.ingredienteCollection = ingredienteCollection;
     }
 
     @Override

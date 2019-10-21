@@ -6,7 +6,7 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,7 +46,7 @@ public class EstadoSolicitud implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoSolicitud")
-    private List<Solicitud> solicitudList;
+    private Collection<Solicitud> solicitudCollection;
 
     public EstadoSolicitud() {
     }
@@ -77,12 +77,12 @@ public class EstadoSolicitud implements Serializable {
     }
 
     @XmlTransient
-    public List<Solicitud> getSolicitudList() {
-        return solicitudList;
+    public Collection<Solicitud> getSolicitudCollection() {
+        return solicitudCollection;
     }
 
-    public void setSolicitudList(List<Solicitud> solicitudList) {
-        this.solicitudList = solicitudList;
+    public void setSolicitudCollection(Collection<Solicitud> solicitudCollection) {
+        this.solicitudCollection = solicitudCollection;
     }
 
     @Override

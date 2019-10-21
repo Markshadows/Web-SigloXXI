@@ -6,7 +6,9 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,7 +57,7 @@ public class Mesa implements Serializable {
     @ManyToOne(optional = false)
     private Estado estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesaId")
-    private List<Reserva> reservaList;
+    private Collection<Reserva> reservaCollection;
 
     public Mesa() {
     }
@@ -103,12 +105,12 @@ public class Mesa implements Serializable {
     }
 
     @XmlTransient
-    public List<Reserva> getReservaList() {
-        return reservaList;
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
     }
 
-    public void setReservaList(List<Reserva> reservaList) {
-        this.reservaList = reservaList;
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
 
 //    @Override
