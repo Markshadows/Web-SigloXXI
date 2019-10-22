@@ -13,164 +13,105 @@
 <html>
     <head>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Comprar</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     </head>
 
     <body>
 
 
-
         <jsp:include page="/BodegaServlet" />
 
 
-        <h1>Existencias actuales en bodega</h1>
-        <h2>Tabla de Listar Productos</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>codigo</th>
-                    <th>nombre</th>
 
-                    <th>Proveedor</th>
-                    <th>Metrica</th>
 
-                </tr>
+        <div class="col-md-12">
+            <div class="card">
 
-            </thead>
-            <tbody>
-                <c:forEach var="item" items="${listaDeProductos}">
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${item.codigo}</td>
-                        <td>${item.nombre}</td>
+                <div class="card-header">
+                    <h1 class="card-title">Ingresos</h1>
+                    <h2 class="card-category">Tabla de Ingresos</h2>
+                </div>
+                <div class="card-body">
 
-                        <td>${item.proveedorId.nombre}</td>
-                        <td>${item.metricaId.peso} ${item.metricaId.medida}</td>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>fecha de ingreso</th>
+                                    <th>Recivido por:</th>
+                                    <th>Proveedor</th>
+                                    <th>Producto</th>
+                                    <th>Metrica</th>
 
-                    </tr>
+                                </tr>
 
-                </c:forEach>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="item" items="${listaDetalleIngreso}">
+                                    <tr>
+                                        <td>
 
-            </tbody>
-        </table>
+                                            <p>  
 
+                                                El
+                                                <fmt:formatDate type="date" dateStyle="long" value="${item.idIngreso.ingreso}" />
+                                                A las
+                                                <fmt:formatDate type="time" timeStyle="short" value="${item.idIngreso.ingreso}" />
+                                            </p> 
 
 
-        <c:if test="${!empty mensaje}" >
-            <strong>${mensaje}</strong> 
-        </c:if>
+                                        </td>
 
-        <c:if test="${!empty errors}" >
-            <strong>${errors}</strong> 
-        </c:if>
 
+                                        <td>
+                                            ${item.idIngreso.usuarioId.nombre}
+                                            ${item.idIngreso.usuarioId.apellidos}
+                                        </td>
 
+                                        <td>
+                                            ${item.idIngreso.productoId.proveedorId.nombre}
+                                        </td>
 
-        <br>
-        <br>
+                                        <td>
+                                            ${item.idIngreso.productoId.codigo} //
+                                            ${item.idIngreso.productoId.nombre} //
+                                        </td>
 
-        <br>
+                                        <td >
+                                            ${item.idIngreso.productoId.metricaId.peso} //
+                                            ${item.idIngreso.productoId.metricaId.medida} //
 
-        <br>
+                                            <p>Habian: ${item.pesoAntiguo} en inventario</p>
+                                            <p>Ingresaron: ${item.pesoIngresado}</p>
+                                            <p>Ahora Hay: ${item.pesoNuevo}</p>
 
 
 
+                                        </td>
 
 
+                                    </tr>
 
+                                </c:forEach>
 
+                            </tbody>
+                        </table>
+                    </div>
 
 
+                </div>
+            </div>
+        </div>   
 
 
 
 
-
-        <h1>Ingresos</h1>
-        <h2>Tabla de listaDeIngresos</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>fecha de ingreso</th>
-                    <th>Recivido por:</th>
-                    <th>Proveedor</th>
-                    <th>Producto</th>
-                    <th>Metrica</th>
-
-                </tr>
-
-            </thead>
-            <tbody>
-                <c:forEach var="item" items="${listaDeIngresos}">
-                    <tr>
-                        <td>
-
-                            <p>  
-
-                                El
-                                <fmt:formatDate type="date" dateStyle="long" value="${item.ingreso}" />
-                                A las
-                                <fmt:formatDate type="time" timeStyle="short" value="${item.ingreso}" />
-                            </p> 
-
-
-                        </td>
-
-
-                        <td>
-                            ${item.usuarioId.nombre}
-                            ${item.usuarioId.apellidos}
-                        </td>
-
-                        <td>
-                            ${item.productoId.proveedorId.nombre}
-                        </td>
-
-                        <td>
-                            ${item.productoId.codigo} //
-                            ${item.productoId.nombre} //
-                        </td>
-
-                        <td>
-                            ${item.productoId.metricaId.peso} //
-                            ${item.productoId.metricaId.medida} //
-                        </td>
-
-
-                    </tr>
-
-                </c:forEach>
-
-            </tbody>
-        </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <br>
-
-        <br>
-
-
-
-
+        <!--
 
         <form action="BodegaServlet" method="POST">
 
@@ -185,15 +126,15 @@
                 <option selected="true"> Seleccione...</option>
                 <option value="Kilos">Kilogramos</option>
                 <option value="Litros">Litros</option>
-                <option value="Sobres">Sobres</option>
-                <option value="Cajas">Cajas</option>
+                <option value="Unidades">Unidades</option>
+                <option value="Paquetes">Paquetes</option>
                 <option value="Botellas">Botellas</option>
             </select>
 
 
-            <!--
+            
             <input type="text" id="medida" name="txtMedida" placeholder="Medida" >
-            -->
+            
 
 
             <h6>Codigo</h6>
@@ -206,39 +147,44 @@
             <h6> idProveedor </h6>
             <select name="txtIdProveedor">
                 <option value="0"> Seleccione...</option>
-                <c:forEach var="item" items="${listaDeProveedor}">
-                    <option value="${item.id}">${item.nombre}</option>
-                </c:forEach>
-            </select>
+        <%--
+        <c:forEach var="item" items="${listaDeProveedor}">
+            <option value="${item.id}">${item.nombre}</option>
+        </c:forEach>
+        
+        --%>
+    </select>
 
 
-            <h6> idUsuario </h6>
-            <select name="txtIdUsuario">
-                <option value="0"> Seleccione...</option>
-                <c:forEach var="item" items="${listaDeUsuario}">
-                    <option value="${item.id}">${item.nombre}</option>
-                </c:forEach>
-            </select>
+    <h6> idUsuario </h6>
+    <select name="txtIdUsuario">
+        <option value="0"> Seleccione...</option>
+        <%--
+        <c:forEach var="item" items="${listaDeUsuario}">
+            <option value="${item.id}">${item.nombre}</option>
+        </c:forEach>
+        --%>
+    </select>
 
 
-            <input type="submit" name="btnAccion" value="RegistrarIngreso" >
+    <input type="submit" name="btnAccion" value="RegistrarIngreso" >
 
+</form>
 
+--
 
-        </form>
-
-
-
-
-
-
-
-
-
-
+        -->
 
 
 
+
+
+
+
+
+
+
+        <%--
         <h1>Tabla para Modificar</h1>
         <table border="1">
             <thead>
@@ -254,6 +200,7 @@
 
             </thead>
             <tbody>
+
                 <c:forEach var="item" items="${listaDeProductos}">
 
                 <form action="BodegaServlet"  id="" method="POST"> 
@@ -284,11 +231,11 @@
 
                         <input type="number" id="txtPesoModificar" name="txtPesoModificar${item.id}" value="${item.metricaId.peso}" >
 
-                       <!-- 
-                        <input type="text" id="txtMedidaModificar" name="txtMedidaModificar${item.id}" value="${item.metricaId.medida}" >
-                       -->
+                        <!-- 
+                         <input type="text" id="txtMedidaModificar" name="txtMedidaModificar${item.id}" value="${item.metricaId.medida}" >
+                        -->
 
-                       
+
                         <select name="txtMedidaModificar${item.id}">
                             <option selected="true" value="${item.metricaId.medida}">${item.metricaId.medida}</option>
                             <option value="Kilos">Kilogramos</option>
@@ -304,7 +251,7 @@
                     </td>
                     <td>
                         <input type="submit" name="btnAccion" value="EditarProducto" >
-                        
+
                     </td>
                     </tr>
                 </form>
@@ -313,6 +260,7 @@
         </tbody>
     </table>
 
+        --%>
 
 
 
@@ -320,5 +268,5 @@
 
 
 
-</body>
+    </body>
 </html>

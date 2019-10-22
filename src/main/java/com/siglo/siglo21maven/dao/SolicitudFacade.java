@@ -6,6 +6,8 @@
 package com.siglo.siglo21maven.dao;
 
 import com.siglo.siglo21maven.dto.Solicitud;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -77,9 +79,24 @@ public class SolicitudFacade extends AbstractFacade<Solicitud> {
     }
 
     public int ultimaSolicitudInsert() {
+        try {
 
-        Query query = em.createQuery("SELECT MAX(s.idSolicitud)+1 FROM Solicitud s");
-        return (int)query.getSingleResult();
+            Query query = em.createQuery("SELECT MAX(s.idSolicitud)+1 FROM Solicitud s");
+            return (int) query.getSingleResult();
+        } catch (Exception e) {
+            return 1;
+        }
     }
 
+    public BigDecimal ultimaSolicitudInsertConSequencia() {
+        Query query = em.createNativeQuery("SELECT SEQ_ESTADO_SOLICITUD.NEXTVAL FROM DUAL");
+        return (BigDecimal) query.getSingleResult();
+    }
+
+    /*
+    public List<Solicitud> solicitudesEnviadas () {
+        Query query = em.createQuery("SELECT s FROM Solicitud s WHERE s.estadoSolicitud = 1");
+        return query.getResultList();
+    }
+     */
 }

@@ -38,5 +38,10 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
         return (BigDecimal) query.getSingleResult();
     }
     
+     public BigDecimal ultimoIngresoSequencia() {
+        Query query = em.createNativeQuery("select SEQ_INGRESO_IDINGRESO.nextval from dual");
+        return (BigDecimal) query.getSingleResult();
+    }
+    
     
 }

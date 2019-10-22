@@ -5,7 +5,7 @@
  */
 package com.siglo.siglo21maven.dao;
 
-import com.siglo.siglo21maven.dto.ProductoSolicitud;
+import com.siglo.siglo21maven.dto.DetalleIngreso;
 import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.Query;
  * @author Betta
  */
 @Stateless
-public class ProductoSolicitudFacade extends AbstractFacade<ProductoSolicitud> {
+public class DetalleIngresoFacade extends AbstractFacade<DetalleIngreso> {
 
     @PersistenceContext(unitName = "com.siglo_siglo21maven_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -27,21 +27,19 @@ public class ProductoSolicitudFacade extends AbstractFacade<ProductoSolicitud> {
         return em;
     }
 
-    public ProductoSolicitudFacade() {
-        super(ProductoSolicitud.class);
+    public DetalleIngresoFacade() {
+        super(DetalleIngreso.class);
     }
-    
-    
-    public int ultimaProductoSolicitudInsert() {
 
-        Query query = em.createQuery("SELECT MAX(ps.productoSolicitudId)+1 FROM ProductoSolicitud ps");
-        //System.out.println("variable de la ultima solicitud " + (short) query.getSingleResult());
-        return (int) query.getSingleResult();
-    }
-    
-     public BigDecimal ultimaProductoSolicitudSeq() {
-        Query query = em.createNativeQuery("select SEQ_PRODUCTO_SOLICITUD.nextval FROM DUAL");
+    public BigDecimal ultimoDetalleIngreso() {
+        Query query = em.createQuery("SELECT MAX(d.idDetalleIngreso)+1 FROM DetalleIngreso d");
         return (BigDecimal) query.getSingleResult();
     }
-     
+    
+
+    public BigDecimal ultimoIngresoSequencia() {
+        Query query = em.createNativeQuery("select SEQ_DETALLES_IDDETALLE.nextval FROM DUAL");
+        return (BigDecimal) query.getSingleResult();
+    }
+
 }

@@ -8,7 +8,9 @@ package com.siglo.siglo21maven.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ingreso.findById", query = "SELECT i FROM Ingreso i WHERE i.id = :id"),
     @NamedQuery(name = "Ingreso.findByIngreso", query = "SELECT i FROM Ingreso i WHERE i.ingreso = :ingreso")})
 public class Ingreso implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIngreso")
+    private List<DetalleIngreso> detalleIngresoList;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -137,6 +144,15 @@ public class Ingreso implements Serializable {
     @Override
     public String toString() {
         return "com.siglo.siglo21maven.dto.Ingreso[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<DetalleIngreso> getDetalleIngresoList() {
+        return detalleIngresoList;
+    }
+
+    public void setDetalleIngresoList(List<DetalleIngreso> detalleIngresoList) {
+        this.detalleIngresoList = detalleIngresoList;
     }
     
 }
