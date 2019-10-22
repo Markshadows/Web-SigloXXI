@@ -50,7 +50,7 @@
             <div class="col-sm-6">
                 <div class="col ">
                     <div class="container">
-                        <c:forEach var="item2" items="${carrito}">
+                  
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -59,6 +59,7 @@
                                     <th>estado</th>
                                 </tr>
                             </thead>
+                                  <c:forEach var="item2" items="${carrito}">
                             <tbody>
 
                                 
@@ -70,8 +71,9 @@
 
                                 
                             </tbody>
+                            </c:forEach>
                         </table>
-                                    </c:forEach>
+                                    
                         <div class="jumbotron">
                             ${rese.getNombre()}
                             ${clientes.getNombre()}

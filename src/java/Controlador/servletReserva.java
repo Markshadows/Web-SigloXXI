@@ -205,8 +205,8 @@ public class servletReserva extends HttpServlet {
 
     }
 
-    private void pago(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void pago(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.sendRedirect("pago.jsp");
     }
 
 }

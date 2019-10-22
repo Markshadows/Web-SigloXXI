@@ -12,6 +12,10 @@
         <servlet-name>servletReserva</servlet-name>
         <servlet-class>Controlador.servletReserva</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servletBoleta</servlet-name>
+        <servlet-class>Controlador.servletBoleta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servletLogin</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>servletReserva</servlet-name>
         <url-pattern>/Reserva</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servletBoleta</servlet-name>
+        <url-pattern>/boleta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

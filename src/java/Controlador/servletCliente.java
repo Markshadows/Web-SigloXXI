@@ -122,7 +122,7 @@ public class servletCliente extends HttpServlet {
                 Mesa mesa = (Mesa) request.getSession().getAttribute("mesa");
                 Mesa me = mesaFacade.find(mesa.getId());
                 Reserva reserva = new Reserva(reservaID, cliente.getNombre(), hoy, cliente, estado, me, usu);
-                        
+
                 reservaFacade.create(reserva);
                 request.getSession().setAttribute("reserva", reserva);
                 //int id, Date createdAt, int total, EstadoBoleta estadoId, ModoPago modoPagoId
@@ -158,11 +158,10 @@ public class servletCliente extends HttpServlet {
 
             }
         } catch (Exception e) {
-            request.getSession().setAttribute("cerror","no se pudo registrar");
+            request.getSession().setAttribute("cerror", "no se pudo registrar");
             response.sendRedirect("cliente.jsp");
         }
-        
-        
+
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
