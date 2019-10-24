@@ -105,8 +105,7 @@ public class servletBoleta extends HttpServlet {
     Reserva reserva = reservaFacade.find(r.getId());
     request.getSession().setAttribute("n",pedidoFacade.valores(reserva.getId()));
     Boleta b = (Boleta)request.getSession().getAttribute("boletas");
-    ModoPago mp =modoPagoFacade.find(b.getModoPagoId().getId());
-    request.getSession().setAttribute("mp", mp);
+    request.getSession().setAttribute("modop", modoPagoFacade.findAll());
     }
 
 }

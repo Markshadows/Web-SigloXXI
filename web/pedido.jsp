@@ -46,72 +46,64 @@
                 </div>
             </div>
         </div>
-    
-            <div class="col-sm-6">
-                <div class="col ">
-                    <div class="container">
-                  
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>nombre</th>
-                                    <th>precio</th>
-                                    <th>estado</th>
-                                </tr>
-                            </thead>
-                                  <c:forEach var="item2" items="${carrito}">
+        <div class="col-sm-6">
+            <div class="col ">
+                <div class="container">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>nombre</th>
+                                <th>precio</th>
+                                <th>estado</th>
+                            </tr>
+                        </thead>
+                        <c:forEach var="item2" items="${carrito}">
                             <tbody>
-
-                                
-                                    <tr>
-                                        <td>${item2[0]}</td>
-                                        <td>${item2[1]}</td>
-                                        <td>${item2[2]}</td>
-                                    </tr>
-
-                                
+                                <tr>
+                                    <td>${item2[0]}</td>
+                                    <td>${item2[1]}</td>
+                                    <td>${item2[2]}</td>
+                                </tr>
                             </tbody>
-                            </c:forEach>
-                        </table>
-                                    
-                        <div class="jumbotron">
-                            ${rese.getNombre()}
-                            ${clientes.getNombre()}
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-      
-
-
-            <div class="col-sm-3">
-                <div class="col ">
-                    <div class="container">
-                        <table class="table table-striped">
-
-                            <c:forEach var="item3" items="${valor}">
-                                <tr>
-                                    <td>neto</td>
-                                    <td>${item3[0]}</td>
-                                </tr>
-                                <tr>
-                                    <td>total</td>
-                                    <td>${item3[2]}</td>
-                                </tr>
-                                <tr>
-                                    <td>iva</td>
-                                    <td>${item3[1]}</td>
-                                </tr>
-
-                            </table>
                         </c:forEach>
+                    </table>
 
-
+                    <div class="jumbotron">
+                        ${rese.getNombre()}
+                        ${clientes.getNombre()}
                     </div>
+
                 </div>
             </div>
-        
+        </div>
+        <div class="col-sm-3">
+            <div class="col ">
+                <div class="container">
+                    <table class="table table-striped">
+
+                        <c:forEach var="item3" items="${valor}">
+                            <tr>
+                                <td>neto</td>
+                                <td>${item3[0]}</td>
+                            </tr>
+                            <tr>
+                                <td>total</td>
+                                <td>${item3[2]}</td>
+                            </tr>
+                            <tr>
+                                <td>iva</td>
+                                <td>${item3[1]}</td>
+                            </tr>
+
+                        </table>
+                    </c:forEach>
+
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
