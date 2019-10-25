@@ -47,8 +47,8 @@
                             </c:forEach>
                             </tr>
                             <tr>
-                                <td><input type="submit" name="btnAccion" value="pedir"></td>
-                                <td><input type="submit" name="btnAccion" value="pago"></td>
+                                
+                                <td><input type="submit" name="btnAccion" value="pagar"></td>
                             </tr>
 
                         </table>

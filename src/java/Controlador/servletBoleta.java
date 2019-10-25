@@ -10,6 +10,7 @@ import dao.ModoPagoFacade;
 import dao.PedidoFacade;
 import dao.ReservaFacade;
 import dto.Boleta;
+import dto.EstadoBoleta;
 import dto.ModoPago;
 import dto.Reserva;
 import java.io.IOException;
@@ -27,6 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 public class servletBoleta extends HttpServlet {
 
     @EJB
+    private BoletaFacade boletaFacade;
+
+    @EJB
     private PedidoFacade pedidoFacade;
 
     @EJB
@@ -35,22 +39,16 @@ public class servletBoleta extends HttpServlet {
     @EJB
     private ReservaFacade reservaFacade;
 
-
-
-    
-    
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String opcion = request.getParameter("btnAccion");
 
         opcion = opcion != null ? opcion : "";
         switch (opcion) {
-            case "ingresar":
+            case "pagar":
                 pagar(request, response);
                 break;
-         
+
             default:
                 listar(request, response);
                 break;
@@ -96,16 +94,34 @@ public class servletBoleta extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void pagar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void pagar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pago = Integer.parseInt(request.getParameter("cboModoP"));
+        ModoPago mp = new ModoPago(pago);
+        if (pago == 1) {
+            Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+            Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+            int total = boletaFacade.total(reserva.getId());
+            EstadoBoleta estadoBoleta = new EstadoBoleta(1);
+            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta,mp );
+            boletaFacade.edit(bfinal);
+
+        } else {
+  Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+            Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+            int total = boletaFacade.total(reserva.getId());
+            EstadoBoleta estadoBoleta = new EstadoBoleta(1);
+            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta,mp );
+            boletaFacade.edit(bfinal);
+        }
+
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-    Reserva r = (Reserva)request.getSession().getAttribute("reserva");
-    Reserva reserva = reservaFacade.find(r.getId());
-    request.getSession().setAttribute("n",pedidoFacade.valores(reserva.getId()));
-    Boleta b = (Boleta)request.getSession().getAttribute("boletas");
-    request.getSession().setAttribute("modop", modoPagoFacade.findAll());
+        Reserva r = (Reserva) request.getSession().getAttribute("reserva");
+        Reserva reserva = reservaFacade.find(r.getId());
+        request.getSession().setAttribute("n", pedidoFacade.valores(reserva.getId()));
+        Boleta b = (Boleta) request.getSession().getAttribute("boletas");
+        request.getSession().setAttribute("modop", modoPagoFacade.findAll());
     }
 
 }
