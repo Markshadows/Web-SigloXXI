@@ -6,11 +6,14 @@
 package Controlador;
 
 import dao.BoletaFacade;
+import dao.MesaFacade;
 import dao.ModoPagoFacade;
 import dao.PedidoFacade;
 import dao.ReservaFacade;
 import dto.Boleta;
+import dto.Estado;
 import dto.EstadoBoleta;
+import dto.Mesa;
 import dto.ModoPago;
 import dto.Reserva;
 import java.io.IOException;
@@ -28,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 public class servletBoleta extends HttpServlet {
 
     @EJB
+    private MesaFacade mesaFacade;
+
+    @EJB
     private BoletaFacade boletaFacade;
 
     @EJB
@@ -38,6 +44,8 @@ public class servletBoleta extends HttpServlet {
 
     @EJB
     private ReservaFacade reservaFacade;
+    
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -102,16 +110,25 @@ public class servletBoleta extends HttpServlet {
             Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
             int total = boletaFacade.total(reserva.getId());
             EstadoBoleta estadoBoleta = new EstadoBoleta(1);
-            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta,mp );
+            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
             boletaFacade.edit(bfinal);
+            Mesa m = (Mesa) request.getSession().getAttribute("mesa");
+            Estado e = new Estado(2);
+            Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
+            mesaFacade.edit(me);
 
         } else {
-  Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+            Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
             Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
             int total = boletaFacade.total(reserva.getId());
             EstadoBoleta estadoBoleta = new EstadoBoleta(1);
-            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta,mp );
+            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
             boletaFacade.edit(bfinal);
+            Mesa m = (Mesa) request.getSession().getAttribute("mesa");
+            Estado e = new Estado(2);
+            Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
+              mesaFacade.edit(me);
+              response.sendRedirect("index.jsp");
         }
 
     }

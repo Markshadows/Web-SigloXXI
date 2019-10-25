@@ -72,6 +72,15 @@ public class Mesa implements Serializable {
         this.sillas = sillas;
     }
 
+    public Mesa(int id, int numero, int sillas, Estado estado) {
+        this.id = id;
+        this.numero = numero;
+        this.sillas = sillas;
+        this.estado = estado;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
