@@ -128,9 +128,9 @@ public class servletBoleta extends HttpServlet {
             Estado e = new Estado(2);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
               mesaFacade.edit(me);
-              response.sendRedirect("index.jsp");
+             
         }
-
+         response.sendRedirect("index.jsp");
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
