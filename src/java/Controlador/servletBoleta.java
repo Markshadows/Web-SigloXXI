@@ -113,7 +113,7 @@ public class servletBoleta extends HttpServlet {
             Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
             boletaFacade.edit(bfinal);
             Mesa m = (Mesa) request.getSession().getAttribute("mesa");
-            Estado e = new Estado(2);
+            Estado e = new Estado(1);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
             mesaFacade.edit(me);
 
@@ -125,7 +125,7 @@ public class servletBoleta extends HttpServlet {
             Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
             boletaFacade.edit(bfinal);
             Mesa m = (Mesa) request.getSession().getAttribute("mesa");
-            Estado e = new Estado(2);
+            Estado e = new Estado(1);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
               mesaFacade.edit(me);
              

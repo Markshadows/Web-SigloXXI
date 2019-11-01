@@ -31,7 +31,8 @@
                                     <td>
                                         <select name="cboMenu" class="form-control-plaintext " >
                                         <c:forEach var="item" items="${menus}">
-                                            <option value="${item.id}" >${item.nombre} ${item.precio}</option>
+                                            <option value="${item.id}" >${item.nombre} ${item.precio} <img src="img/empanadas-tamano-xl-grandes-x-doc-al-horno-y-soufle-sabor-D_NQ_NP_531511-MLA20558840704_012016-F.jpg" alt=""/> </option>
+                                            
                                         </c:forEach>
                                     </select>
                                 </td>
