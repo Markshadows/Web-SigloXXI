@@ -19,10 +19,12 @@ import dto.Reserva;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 /**
  *
@@ -116,6 +118,7 @@ public class servletBoleta extends HttpServlet {
             Estado e = new Estado(1);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
             mesaFacade.edit(me);
+            
 
         } else {
             Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
@@ -137,7 +140,6 @@ public class servletBoleta extends HttpServlet {
         Reserva r = (Reserva) request.getSession().getAttribute("reserva");
         Reserva reserva = reservaFacade.find(r.getId());
         request.getSession().setAttribute("n", pedidoFacade.valores(reserva.getId()));
-        Boleta b = (Boleta) request.getSession().getAttribute("boletas");
         request.getSession().setAttribute("modop", modoPagoFacade.findAll());
     }
 

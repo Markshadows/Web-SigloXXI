@@ -133,7 +133,7 @@ public class servletReserva extends HttpServlet {
        response.sendRedirect("pedido.jsp");
         } catch (Exception e) {
             request.getSession().setAttribute("pedido", "Error al ingresar pedido");
-            response.sendRedirect("Pedodo.jsp");
+            response.sendRedirect("pedido.jsp");
         }
        
        
