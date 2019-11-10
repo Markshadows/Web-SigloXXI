@@ -15,12 +15,7 @@
     </head>
 
     <body>
-
-
         <jsp:include page="/BodegaServlet" />
-
-
-
 
         <c:if test="${!empty mensaje}" >
             <strong>${mensaje}</strong> 
@@ -32,20 +27,38 @@
 
 
 
+        <form action="BodegaServlet" method="POST">
+            <div class="row">
+                <div class="col-md-4">
 
-
-        <div class="row">
-            <div class="card">
-
-                <div class="card-header">
-                    <h1 class="card-title">Solicitudes</h1>
-                    <h2 class="card-category">Enviar una Solicitud</h2>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h6>Asunto</h6>
+                            <input type="text" class="form-control" placeholder="Asunto" id="txtAsunto" name="txtAsunto" placeholder="Asunto..." >
+                        </div>
+                        <div class="form-group">
+                            <h6>Mensaje</h6>
+                            <input type="text" class="form-control" placeholder="Mensaje" id="txtMensaje" name="txtMensaje" placeholder="Mensaje..." >
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btnAccion" value="Enviar" >
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
 
 
-                    <div class="col-md-12">
-                        <form action="BodegaServlet" method="POST">
+                <div class="col-md-8">
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h1 class="card-title">Solicitudes</h1>
+                            <h2 class="card-category">Enviar una Solicitud</h2>
+                        </div>
+
+                        <div class="card-body">
+
+
 
 
                             <div class="table-responsive-sm">
@@ -79,31 +92,29 @@
                                 </table>
                             </div>
 
-
-
-
-
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <h6>Asunto</h6>
-                                    <input type="text" class="form-control" placeholder="Asunto" id="txtAsunto" name="txtAsunto" placeholder="Asunto..." >
-                                </div>
-                                <div class="form-group">
-                                    <h6>Mensaje</h6>
-                                    <input type="text" class="form-control" placeholder="Mensaje" id="txtMensaje" name="txtMensaje" placeholder="Mensaje..." >
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" name="btnAccion" value="Enviar" >
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-
-
-
                 </div>
             </div>
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+
 
 
 

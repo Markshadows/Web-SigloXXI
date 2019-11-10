@@ -23,22 +23,41 @@
         <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="assets/demo/demo.css" rel="stylesheet" />
-
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        
+        
 
 
+
+
+
+
+        
+        <script>
+            function printDiv(divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+                
+                <input type="button" onclick="printDiv('printableArea')" value="print a div!" />
+            }
+        </script>
+        
 
     </head>
 
     <body class="">
+
         <div class="wrapper ">
             <div class="sidebar" data-color="white" data-active-color="danger">
-                <!--
-                  Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-                -->
                 <div class="logo">
                     <a href="" class="simple-text logo-mini">
                         <div class="">
@@ -53,30 +72,25 @@
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
-
                     <ul class="nav">
                         <li class="active ">
                             <a data-toggle="pill" href="#home">
                                 <i class="nc-icon nc-single-copy-04"></i>
-                                <p>Inicio</p>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a data-toggle="pill" href="#menu1">
-                                <i class="nc-icon nc-paper"></i>
                                 <p>Inventario</p>
                             </a>
                         </li>
-
                         <li>
-                            <a data-toggle="pill" href="#menu2">
-                                <i class="nc-icon nc-delivery-fast"></i>
+                            <a data-toggle="pill" href="#menu1">
+                                <i class="nc-icon nc-paper"></i>
                                 <p>Ingresos</p>
                             </a>
                         </li>
-
-
+                        <li>
+                            <a data-toggle="pill" href="#menu2">
+                                <i class="nc-icon nc-delivery-fast"></i>
+                                <p>Recepcion</p>
+                            </a>
+                        </li>
                         <li>
                             <a data-toggle="pill" href="#menu3">
                                 <i class="nc-icon nc-chat-33"></i>
@@ -84,20 +98,14 @@
 
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
             </div>
 
 
 
 
-
             <div class="main-panel">
-
-
-
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
                     <div class="container-fluid">
@@ -118,12 +126,8 @@
                             <span class="navbar-toggler-bar navbar-kebab"></span>
                         </button>
                         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
                             <ul class="navbar-nav">
-
-
                                 <!-- AQUI FORMULARIO PARA CERRAR SESION -->
-
                                 <li class="nav-item ">
                                     <a class="nav-link btn-rotate" href="#">
                                         <i class="nc-icon nc-user-run"></i>
@@ -132,52 +136,41 @@
                                         </p>
                                     </a>
                                 </li>
-
-                                <!-- end formulario cerrar sesion-->
-
                             </ul>
                         </div>
                     </div>
                 </nav>
-
                 <!-- End Navbar -->
                 <!-- <div class="panel-header panel-header-lg">
           
+                
             <canvas id="bigDashboardChart"></canvas>
           
           
           </div> -->
                 <div class="content">
-
-
-                    <div class="row">
-                        <div class="tab-content">
-
-                            <div id="home" class="tab-pane fade in active">
-                                <h1>inventario.jsp</h1>
-                                <jsp:include page="inventario.jsp" ></jsp:include>
-                                </div>
-
-                                <div id="menu1" class="tab-pane fade">
-                                    <h1>bodega.jsp</h1>
-                                <jsp:include page="bodega.jsp" ></jsp:include>
-                                </div>
-
-                                <div id="menu2" class="tab-pane fade">
-                                    <h1>ingresoproductos.jsp</h1>
-                                <jsp:include page="ingresoproductos.jsp" ></jsp:include>
-                                </div>
-
-                                <div id="menu3" class="tab-pane fade">
-                                    <h1>solicitud.jsp</h1>
-                                <jsp:include page="solicitud.jsp" ></jsp:include>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <h1>inventario.jsp</h1>
+                            <jsp:include page="inventario.jsp" ></jsp:include>
                             </div>
+
+                            <div id="menu1" class="tab-pane fade">
+                                <h1>bodega.jsp</h1>
+                            <jsp:include page="bodega.jsp" ></jsp:include>
+                            </div>
+
+                            <div id="menu2" class="tab-pane fade">
+                                <h1>ingresoproductos.jsp</h1>
+                            <jsp:include page="ingresoproductos.jsp" ></jsp:include>
+                            </div>
+
+                            <div id="menu3" class="tab-pane fade">
+                                <h1>solicitud.jsp</h1>
+                            <jsp:include page="solicitud.jsp" ></jsp:include>
                         </div>
                     </div>
-
                 </div>
-
-
                 <footer class="footer footer-black  footer-white ">
                     <div class="container-fluid">
                         <div class="row">
@@ -205,22 +198,8 @@
                         </div>
                     </div>
                 </footer>
-
-
-
-
-
-
-
-
-
             </div>
         </div>
-
-
-
-
-
 
         <!--   Core JS Files   -->
         <script src="assets/js/core/jquery.min.js"></script>
@@ -238,13 +217,6 @@
         <script src="assets/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-
-
-
-
-
-
-
 
     </body>
 

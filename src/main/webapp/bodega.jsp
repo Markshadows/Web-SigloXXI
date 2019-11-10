@@ -6,6 +6,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,252 +20,222 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <script>
+            // Write on keyup event of keyword input element
+            $(document).ready(function () {
+                $("#ingresoBuscar").keyup(function () {
+                    _this = this;
+                    // Show only matching TR, hide rest of them
+                    $.each($("#tablaIngresos tbody tr"), function () {
+                        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+                    });
+                });
+            });
+
+            $(document).ready(function () {
+                $("#selectProve").change(function () {
+                    _this = this;
+                    $.each($("#tablaIngresos tbody tr"), function () {
+                        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+                    });
+                });
+            });
+
+            $(document).ready(function () {
+                $("#fechaIngreso").change(function () {
+                    _this = this;
+                    $.each($("#tablaIngresos tbody tr"), function () {
+                        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+                    });
+                });
+            });
+
+
+        </script>
+
+
+
+
     </head>
 
     <body>
 
+        <jsp:useBean id="listaIngresosProveedor" class="java.util.ArrayList"/>
+        <jsp:useBean id="listaIngresosRecivido" class="java.util.ArrayList"/>
 
+        <%--
+        <jsp:useBean id="string" class="java.lang.String"/>
+        --%>
         <jsp:include page="/BodegaServlet" />
 
 
 
 
-        <div class="col-md-12">
-            <div class="card">
 
-                <div class="card-header">
-                    <h1 class="card-title">Ingresos</h1>
-                    <h2 class="card-category">Tabla de Ingresos</h2>
-                </div>
-                <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="">
 
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>fecha de ingreso</th>
-                                    <th>Recivido por:</th>
-                                    <th>Proveedor</th>
-                                    <th>Producto</th>
-                                    <th>Metrica</th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <c:forEach var="item" items="${listaDetalleIngreso}">
-                                    <tr>
-                                        <td>
-
-                                            <p>  
-
-                                                El
-                                                <fmt:formatDate type="date" dateStyle="long" value="${item.idIngreso.ingreso}" />
-                                                A las
-                                                <fmt:formatDate type="time" timeStyle="short" value="${item.idIngreso.ingreso}" />
-                                            </p> 
-
-
-                                        </td>
-
-
-                                        <td>
-                                            ${item.idIngreso.usuarioId.nombre}
-                                            ${item.idIngreso.usuarioId.apellidos}
-                                        </td>
-
-                                        <td>
-                                            ${item.idIngreso.productoId.proveedorId.nombre}
-                                        </td>
-
-                                        <td>
-                                            ${item.idIngreso.productoId.codigo} //
-                                            ${item.idIngreso.productoId.nombre} //
-                                        </td>
-
-                                        <td >
-                                            ${item.idIngreso.productoId.metricaId.peso} //
-                                            ${item.idIngreso.productoId.metricaId.medida} //
-
-                                            <p>Habian: ${item.pesoAntiguo} en inventario</p>
-                                            <p>Ingresaron: ${item.pesoIngresado}</p>
-                                            <p>Ahora Hay: ${item.pesoNuevo}</p>
-
-
-
-                                        </td>
-
-
-                                    </tr>
-
-                                </c:forEach>
-
-                            </tbody>
-                        </table>
+                    <div class="card-header" style="">
+                        <h1 class="card-title">Ingresos</h1>
+                        <h2 class="card-category">Tabla de Ingresos</h2>
+                        <div class="input-group">
+                            <input type="text" class="form-control pull-right" style="width:40%" id="ingresoBuscar" placeholder="Buscar...">
+                            <span class="input-group-addon">
+                                <i class="nc-icon nc-zoom-split"></i>
+                            </span>
+                        </div>
                     </div>
 
 
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            <table class="table" id="tablaIngresos">
+                                <thead class=" text-primary">
+                                    <tr>
+
+                                        <th>
+                                            fecha de ingreso <span class="glyphicon glyphicon-calendar"></span>   
+                                        </th>
+
+
+
+                                        <th>
+
+                                            Recivido por:
+
+                                            <%--
+                                            <c:forEach var="x" items="${listaDetalleIngreso}">
+                                                <c:if test="${not fn:containsIgnoreCase( listaIngresosRecivido , 
+                                                              
+                                                              ( x.idIngreso.usuarioId.nombre.toString().concat( x.idIngreso.usuarioId.apellidos))
+                                                              
+                                                              )}">
+                                                    <c:set var="noUse" value="${listaIngresosRecivido.add((x.idIngreso.usuarioId.nombre + x.idIngreso.usuarioId.apellidos))}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            --%>
+                                            <%--
+                                            <select id="selectProve" class="btn btn-info" aria-expanded="false" aria-haspopup="true" name="">
+                                                <option class="dropdown-item" value="">Recivido Por:</option>
+                                                <p class="dropdown-divider"></p>
+                                                <c:forEach var="y" items="${listaIngresosRecivido}">
+                                                    <option class="dropdown-item" >${y}</option>
+                                                </c:forEach>
+
+                                            </select>
+                                           
+                                            --%>
+
+                                        </th>
+                                        <th>
+
+                                            <c:forEach var="x" items="${listaDetalleIngreso}">
+                                                <c:if test="${not fn:containsIgnoreCase( listaIngresosProveedor , x.idIngreso.productoId.proveedorId.nombre )}">
+                                                    <c:set var="noUse" value="${listaIngresosProveedor.add(x.idIngreso.productoId.proveedorId.nombre)}"/>
+                                                </c:if>
+                                            </c:forEach>
+
+
+                                            <select id="selectProve" class="btn btn-info" aria-expanded="false" aria-haspopup="true" name="">
+                                                <option class="dropdown-item" value="">Proveedor</option>
+                                                <p class="dropdown-divider"></p>
+                                                <c:forEach var="y" items="${listaIngresosProveedor}">
+                                                    <option class="dropdown-item" value="${y}">${y}</option>
+                                                </c:forEach>
+
+                                            </select>
+
+
+                                        </th>
+                                        <th>Producto</th>
+                                        <th>Metrica</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <c:forEach var="item" items="${listaDetalleIngreso}">
+                                        <tr>
+                                            <td>
+                                                <p>  
+                                                    El
+                                                    <fmt:formatDate type="date" dateStyle="long" value="${item.idIngreso.ingreso}" />
+                                                    A las
+                                                    <fmt:formatDate type="time" timeStyle="short" value="${item.idIngreso.ingreso}" />
+                                                </p> 
+                                            </td>
+
+                                            <td>
+                                                ${item.idIngreso.usuarioId.nombre}
+                                                ${item.idIngreso.usuarioId.apellidos}
+                                            </td>
+
+                                            <td style="align-content: space-between">
+                                                ${item.idIngreso.productoId.proveedorId.nombre}
+                                            </td>
+
+                                            <td>
+
+                                                <div class="" style="align-items: flex-start">
+
+                                                    <p class="text-muted">Codigo: ${item.idIngreso.productoId.codigo}</p>
+                                                    <p class="text-warning"> <strong>${item.idIngreso.productoId.nombre}</strong>  </p>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td >
+
+
+
+                                                <div class="" style="text-align: left">
+
+
+                                                    <p class="text-muted">Habian: ${item.pesoAntiguo} en inventario</p>
+                                                    <p class="text-warning"><strong>  Ingresaron: ${item.pesoIngresado} </strong>  </p>
+
+                                                </div>
+
+
+                                                    
+                                                <p class="text-info"
+                                                   style="text-align: center"><strong>  Ahora Hay: ${item.idIngreso.productoId.metricaId.peso} ${item.idIngreso.productoId.metricaId.medida}</strong> </p>
+
+                                                <%--
+                                                <h6 class="" style="text-align: right">Ahora Hay: ${item.pesoNuevo}</h6>
+                                                --%>
+
+
+
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+
+
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>   
-
-
-
-
-        <!--
-
-        <form action="BodegaServlet" method="POST">
-
-            <h1>Recepcion de Productos</h1>
-            <h1>Formulario Agregar Producto</h1>
-
-            <h6>Peso</h6>
-            <input type="number" id="peso" name="txtPeso" placeholder="Peso" >
-
-            <h6>Medida</h6>
-            <select name="txtMedida">
-                <option selected="true"> Seleccione...</option>
-                <option value="Kilos">Kilogramos</option>
-                <option value="Litros">Litros</option>
-                <option value="Unidades">Unidades</option>
-                <option value="Paquetes">Paquetes</option>
-                <option value="Botellas">Botellas</option>
-            </select>
-
-
-            
-            <input type="text" id="medida" name="txtMedida" placeholder="Medida" >
-            
-
-
-            <h6>Codigo</h6>
-            <input type="text" id="codigo" name="txtCodigo" placeholder="Codigo" >
-
-            <h6>Nombre</h6>
-            <input type="text" id="nombre" name="txtNombre" placeholder="Nombre" >
-
-
-            <h6> idProveedor </h6>
-            <select name="txtIdProveedor">
-                <option value="0"> Seleccione...</option>
-        <%--
-        <c:forEach var="item" items="${listaDeProveedor}">
-            <option value="${item.id}">${item.nombre}</option>
-        </c:forEach>
-        
-        --%>
-    </select>
-
-
-    <h6> idUsuario </h6>
-    <select name="txtIdUsuario">
-        <option value="0"> Seleccione...</option>
-        <%--
-        <c:forEach var="item" items="${listaDeUsuario}">
-            <option value="${item.id}">${item.nombre}</option>
-        </c:forEach>
-        --%>
-    </select>
-
-
-    <input type="submit" name="btnAccion" value="RegistrarIngreso" >
-
-</form>
-
---
-
-        -->
-
-
-
-
-
-
-
-
-
-
-        <%--
-        <h1>Tabla para Modificar</h1>
-        <table border="1">
-            <thead>
-                <tr>
-
-                    <th>codigo</th>
-                    <th>nombre</th>
-
-                    <th>Proveedor</th>
-                    <th>Metrica</th>
-                    <th>acciones</th>
-                </tr>
-
-            </thead>
-            <tbody>
-
-                <c:forEach var="item" items="${listaDeProductos}">
-
-                <form action="BodegaServlet"  id="" method="POST"> 
-
-                    <tr>
-
-                    <input type="hidden" id="txtIdProductoModificar" name="txtIdProductoModificar" value="${item.id}" >   
-
-                    <td>
-                        <input type="text" id="txtCodigoModificar${item.id}" name="txtCodigoModificar${item.id}" value="${item.codigo}" > 
-                    </td>
-                    <td>
-                        <input type="text" id="txtNombreModificar${item.id}" name="txtNombreModificar${item.id}" value="${item.nombre}" > 
-                    </td>
-
-
-                    <td>
-                        <select name="txtProveedorModificar${item.id}">
-                            <option value="${item.proveedorId.id}">${item.proveedorId.nombre} </option>
-                            <c:forEach var="lista" items="${listaDeProveedor}">
-                                <option value="${lista.id}">${lista.nombre}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-
-                    <td>
-                        <input type="hidden" id="txtPesoModificar" name="txtIdModificar${item.id}" value="${item.metricaId.id}" >
-
-                        <input type="number" id="txtPesoModificar" name="txtPesoModificar${item.id}" value="${item.metricaId.peso}" >
-
-                        <!-- 
-                         <input type="text" id="txtMedidaModificar" name="txtMedidaModificar${item.id}" value="${item.metricaId.medida}" >
-                        -->
-
-
-                        <select name="txtMedidaModificar${item.id}">
-                            <option selected="true" value="${item.metricaId.medida}">${item.metricaId.medida}</option>
-                            <option value="Kilos">Kilogramos</option>
-                            <option value="Litros">Litros</option>
-                            <option value="Sobres">Sobres</option>
-                            <option value="Cajas">Cajas</option>
-                            <option value="Botellas">Botellas</option>
-                        </select>
-
-
-
-
-                    </td>
-                    <td>
-                        <input type="submit" name="btnAccion" value="EditarProducto" >
-
-                    </td>
-                    </tr>
-                </form>
-            </c:forEach>
-
-        </tbody>
-    </table>
-
-        --%>
-
-
-
-
+            </div>   
+        </div>
 
 
 

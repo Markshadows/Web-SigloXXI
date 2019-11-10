@@ -109,45 +109,57 @@
         --%>
 
 
-
-
-
-
         <form action="BodegaServlet"  id="" method="POST">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="title">Ingreso de Producto</h1>
-                        <h1>Seccione el Producto</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card ">
 
-                            <select class="" name="txtIdProducto">
+                        <div class="card-header ">
+                            <h5 class="card-title">Ingreso de Producto</h5>
+                            <p class="card-category">Seccione el Producto</p>
+                        </div>
+
+                        <div class="card-body ">
+
+
+                          
+
+
+                            <select class="btn btn-danger" name="txtIdProducto">
                                 <option value="">Seleccione...</option>
                                 <c:forEach var="item" items="${listaDeProductos}">
-                                    <option value="${item.id}">${item.nombre}</option>
+                                    <option class="dropdown-item" value="${item.id}">${item.nombre}</option>
                                     <c:set var="idpro" value="${item.id}"/>
                                 </c:forEach>
                             </select>
-                            <br>
-                            <br>
+
+                        </div>
+
+                        <div class="card-footer ">
+                            <div class="stats">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> producto verificado
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-8">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h5 class="card-title">Actualizar el Stock</h5>
+                            <p class="card-category">Asegurese de revisar la cantidad a ingresar</p>
+                        </div>
+                        <div class="card-body">
+                            <input type="number" class="form-control"  placeholder="Ingreso de cantidad" name="txtPesoModificar" placeholder="Cantidad a ingresar" >
+                            <input type="submit" style="" class="btn btn-primary btn-round" name="btnAccion"  value="RegistrarIngreso2" >
+
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="title">Ingreso de Producto</h1>
-                        <h1>Actualizar el Stock </h1>
-                    </div>
-                    <div class="card-body">
-                        <input type="number" class="form-control"  placeholder="Ingreso de cantidad" name="txtPesoModificar" placeholder="Cantidad a ingresar" >
-                        <input type="submit" class="btn btn-primary btn-round" name="btnAccion" value="RegistrarIngreso2" >
-                    </div>
-                </div>
+
             </div>
         </form>
 
