@@ -18,7 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +41,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ingreso.findAll", query = "SELECT i FROM Ingreso i"),
     @NamedQuery(name = "Ingreso.findById", query = "SELECT i FROM Ingreso i WHERE i.id = :id"),
     @NamedQuery(name = "Ingreso.findByIngreso", query = "SELECT i FROM Ingreso i WHERE i.ingreso = :ingreso")})
+
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(
+            name = "sp_ingreso_promedio",
+            procedureName = "sp_ingreso_promedio",
+            parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = Ingreso.class, name = "p_promedio")}
+    )
+})
+
 public class Ingreso implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIngreso")
@@ -82,8 +96,6 @@ public class Ingreso implements Serializable {
         this.usuarioId = usuarioId;
     }
 
-    
-    
     public Ingreso(BigDecimal id, Date ingreso) {
         this.id = id;
         this.ingreso = ingreso;
@@ -154,5 +166,5 @@ public class Ingreso implements Serializable {
     public void setDetalleIngresoList(List<DetalleIngreso> detalleIngresoList) {
         this.detalleIngresoList = detalleIngresoList;
     }
-    
+
 }

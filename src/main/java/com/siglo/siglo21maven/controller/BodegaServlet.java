@@ -55,7 +55,7 @@ public class BodegaServlet extends HttpServlet {
 
     private String mensaje = null;
     private String errors = null;
-    private String paginaRetorno = "bodega.jsp";
+    private String paginaRetorno = "AdminBodega.jsp";
     private Object objeto = null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -67,7 +67,7 @@ public class BodegaServlet extends HttpServlet {
 //            if (opcion.equals("RegistrarIngreso")) {
 //                RegistrarIngreso(request, response);
 //            }
-            if (opcion.equals("RegistrarIngreso2")) {
+            if (opcion.equals("RegistrarIngreso")) {
                 RegistrarIngreso2(request, response);
             }
 
@@ -184,6 +184,7 @@ public class BodegaServlet extends HttpServlet {
 
             paginaRetorno = "bodega.jsp";
             response.sendRedirect(paginaRetorno);
+            
 
         } catch (Exception e) {
             System.out.println("error al modificar servlet " + e.getMessage());
@@ -204,6 +205,10 @@ public class BodegaServlet extends HttpServlet {
         request.getSession().setAttribute("listaDeSolicitudes", solicitudFacade.findAll());
         request.getSession().setAttribute("listaDeProductoSolicitud", productoSolicitudFacade.findAll());
 
+        
+        
+        request.getSession().setAttribute("ingresoPromedio", ingresoFacade.promedioIngreso());
+        
         //request.getSession().setAttribute("listaDeIngresos", ingresoFacade.findAll());
     }
 
@@ -258,7 +263,7 @@ public class BodegaServlet extends HttpServlet {
 
             mensaje = "Solicitud Enviada";
             request.getSession().setAttribute("mensaje", mensaje);
-
+            response.sendRedirect(paginaRetorno);
             ///cambios
             
             //request.getSession().removeAttribute("listaDeSolicitudes");
@@ -266,7 +271,6 @@ public class BodegaServlet extends HttpServlet {
             //request.getSession().setAttribute("listaDeSolicitudes", solicitudFacade.findAll());
             //request.getSession().setAttribute("listaDeSolicitudes.productoSolicitudList", productoSolicitudFacade.findAll());
 
-            response.sendRedirect("solicitud.jsp");
 
         } catch (Exception e) {
 
