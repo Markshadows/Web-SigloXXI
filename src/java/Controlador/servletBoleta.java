@@ -17,14 +17,13 @@ import dto.Mesa;
 import dto.ModoPago;
 import dto.Reserva;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
+import ws.Service1;
+import ws.Service1_Service;
 
 /**
  *
@@ -46,8 +45,6 @@ public class servletBoleta extends HttpServlet {
 
     @EJB
     private ReservaFacade reservaFacade;
-    
-    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,6 +104,9 @@ public class servletBoleta extends HttpServlet {
     private void pagar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int pago = Integer.parseInt(request.getParameter("cboModoP"));
         ModoPago mp = new ModoPago(pago);
+        Service1_Service servicio = new Service1_Service();
+        Service1 cliente = servicio.getService1Port();
+
         if (pago == 1) {
             Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
             Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
@@ -118,7 +118,6 @@ public class servletBoleta extends HttpServlet {
             Estado e = new Estado(1);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
             mesaFacade.edit(me);
-            
 
         } else {
             Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
@@ -130,10 +129,10 @@ public class servletBoleta extends HttpServlet {
             Mesa m = (Mesa) request.getSession().getAttribute("mesa");
             Estado e = new Estado(1);
             Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
-              mesaFacade.edit(me);
-             
+            mesaFacade.edit(me);
+
         }
-         response.sendRedirect("index.jsp");
+        response.sendRedirect("cliente.jsp");
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {

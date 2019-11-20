@@ -56,7 +56,7 @@ public class servletReserva extends HttpServlet {
 
         opcion = opcion != null ? opcion : "";
         switch (opcion) {
-        
+
             case "pedir":
                 pedir(request, response);
                 break;
@@ -66,7 +66,7 @@ public class servletReserva extends HttpServlet {
             case "mesa":
                 mesa(request, response);
                 break;
-          
+
             default:
                 listar(request, response);
                 break;
@@ -112,32 +112,29 @@ public class servletReserva extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
-
     private void pedir(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       int pedidoId= pedidoFacade.ultimoId();
-       java.util.Date hoy = new  Date();
-       Boleta b = (Boleta)request.getSession().getAttribute("boletas");
-       Boleta boleta = boletaFacade.find(b.getId());
-       Estado estado = new Estado(1);
-       int m= Integer.parseInt(request.getParameter("cboMenu"));
-       Menu menu =new Menu(m);
-       Reserva r = (Reserva)request.getSession().getAttribute("reserva");
-       Reserva reserva = reservaFacade.find(r.getId());
-       Pedido pedido = new Pedido(pedidoId, hoy, boleta, estado, menu, reserva);
-       
+        int pedidoId = pedidoFacade.ultimoId();
+        java.util.Date hoy = new Date();
+        Boleta b = (Boleta) request.getSession().getAttribute("boletas");
+        Boleta boleta = boletaFacade.find(b.getId());
+        Estado estado = new Estado(3);
+        int m = Integer.parseInt(request.getParameter("cboMenu"));
+        Menu menu = new Menu(m);
+        Reserva r = (Reserva) request.getSession().getAttribute("reserva");
+        Reserva reserva = reservaFacade.find(r.getId());
+        Pedido pedido = new Pedido(pedidoId, hoy, boleta, estado, menu, reserva);
+
         try {
-       pedidoFacade.create(pedido);
-       request.getSession().setAttribute("carrito", pedidoFacade.carrito(reserva.getId()));
-       request.getSession().setAttribute("valor", pedidoFacade.valores(reserva.getId()));
-       response.sendRedirect("pedido.jsp");
+            pedidoFacade.create(pedido);
+            request.getSession().setAttribute("carrito", pedidoFacade.carrito(reserva.getId()));
+            request.getSession().setAttribute("valor", pedidoFacade.valores(reserva.getId()));
+            response.sendRedirect("pedido.jsp");
         } catch (Exception e) {
             request.getSession().setAttribute("pedido", "Error al ingresar pedido");
             response.sendRedirect("pedido.jsp");
         }
-       
-       
-       //int id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId        
+
+        //int id, Date createdAt, Boleta boletaId, Estado estadoId, Menu menuId, Reserva reservaId        
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
@@ -149,21 +146,17 @@ public class servletReserva extends HttpServlet {
     private void mesa(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int me = Integer.parseInt(request.getParameter("cboMesa"));
         Mesa mes = mesaFacade.find(me);
-         Estado e = new Estado(2);
-        Mesa mesa= new Mesa(me, mes.getNumero(), mes.getSillas(), e);
+        Estado e = new Estado(2);
+        Mesa mesa = new Mesa(me, mes.getNumero(), mes.getSillas(), e);
         mesaFacade.edit(mesa);
         request.getSession().setAttribute("mesa", mesa);
-       
-        
-            response.sendRedirect("cliente.jsp");
-        
+
+        response.sendRedirect("cliente.jsp");
 
     }
 
-
-
     private void pago(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.sendRedirect("pago.jsp");
+        response.sendRedirect("pago.jsp");
     }
 
 }

@@ -18,7 +18,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>servletLogin</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>servletCliente</servlet-name>

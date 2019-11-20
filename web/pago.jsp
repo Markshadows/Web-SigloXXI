@@ -47,11 +47,50 @@
                             </c:forEach>
                             </tr>
                             <tr>
-                                
-                                <td><input type="submit" name="btnAccion" value="pagar"></td>
-                            </tr>
 
-                        </table>
+                                <td><input type="submit" class="btn btn-default" name="btnAccion" value="pagar efectivo"></td>
+                            </tr>
+                            <tr>
+                            <input type="submit" class="btn btn-info btn-lg" data-toggle="modal" value="transferencia" data-target="#myModal"></button>
+
+                            </tr>
+                        </table>    
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Pagar por transferencia</h4>
+                                        <p>ingresa tu usuario y contraseña para poder pagar con transferencia </p>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12 form-group">
+                                                <label >rut</label>
+                                                <input type="text" name="txtRut" oninput="checkRut(this)" required="" placeholder="19999245-5"  class="form-control ">
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <label >nombre</label>
+                                                <input type="password" name="txtPass" required="5" placeholder="juanito figueroa" class="form-control ">
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-12 form-group">
+                                                    <input type="submit" value="transferir" name="btnAccion" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">salir</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>

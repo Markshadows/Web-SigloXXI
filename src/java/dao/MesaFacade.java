@@ -30,8 +30,8 @@ public class MesaFacade extends AbstractFacade<Mesa> {
     public MesaFacade() {
         super(Mesa.class);
     }
-    
-       public List<Object> mesahabilitada() {
+
+    public List<Object> mesahabilitada() {
         try {
             Query query = em.createQuery("SELECT m FROM Mesa m WHERE m.estado.id=1");
             return query.getResultList();
@@ -40,5 +40,6 @@ public class MesaFacade extends AbstractFacade<Mesa> {
             return null;
         }
     }
-    
+
+  
 }

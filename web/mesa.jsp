@@ -54,16 +54,33 @@
                             <form action="Reserva" method="POST">
                                 <div class="row">
                                     <div class="col-md-12 form-group">
-                                        
+
                                         <select name="cboMesa" class="form-control-plaintext " >
-                                    <c:forEach var="item" items="${me}">
-                                        <option value="${item.id}" >mesa ${item.numero} con ${item.sillas} sillas</option>
-                                    </c:forEach>
-                                        </select>
+                                        <c:forEach var="item" items="${me}">
+                                            <option value="${item.id}" >mesa ${item.numero} con ${item.sillas} sillas</option>
+                                        </c:forEach>
+                                    </select>
+
+
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <div class="col-md-12 form-group">
                                         <input type="submit" value="mesa" name="btnAccion" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group">
+                                        <p>
+                                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                gestionar pedidos
+                                            </a>
+                                          
+                                        </p>
+                                        <div class="collapse" id="collapseExample">
+                                            <div class="card card-body">
+                                            
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

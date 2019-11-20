@@ -85,24 +85,30 @@ public class servletLogin extends HttpServlet {
         Usuario usu = usuarioFacade.IniciarSesion(user, pass);
         request.getSession().setAttribute("usuarios", usu);
 //
-        switch (usu.getRolId().getId()) {
-            case 1:
-                response.sendRedirect("administrador.jsp");
-                request.getSession().setAttribute("usuarios", usu);
-                break;
-            case 3:
-                response.sendRedirect("mesa.jsp");
-                request.getSession().setAttribute("usuarios", usu);
-                break;
-            case 6:
-                response.sendRedirect("reservas.jsp");
-                request.getSession().setAttribute("usuarios", usu);
-                break;
-            default:
-                request.getRequestDispatcher("login.jsp");
-                request.setAttribute("error", "no ingreso");
-                break;
+        try {
+            switch (usu.getRolId().getId()) {
+                case 1:
+                    response.sendRedirect("administrador.jsp");
+                    request.getSession().setAttribute("usuarios", usu);
+                    break;
+                case 3:
+                    response.sendRedirect("mesa.jsp");
+                    request.getSession().setAttribute("usuarios", usu);
+                    break;
+                case 6:
+                    response.sendRedirect("reservas.jsp");
+                    request.getSession().setAttribute("usuarios", usu);
+                    break;
+                default:
+                    response.sendRedirect("login.jsp");
+                    request.setAttribute("error", "no ingreso");
+                    break;
+            }
+        } catch (Exception e) {
+            response.sendRedirect("login.jsp");
+            request.setAttribute("error", "no ingreso");
         }
+
     }
 
 }

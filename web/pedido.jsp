@@ -31,10 +31,10 @@
                                     <td>
                                         <select name="cboMenu" class="form-control-plaintext " >
                                         <c:forEach var="item" items="${menus}">
-                                            <option value="${item.id}" >${item.nombre} ${item.precio} <img src="img/empanadas-tamano-xl-grandes-x-doc-al-horno-y-soufle-sabor-D_NQ_NP_531511-MLA20558840704_012016-F.jpg" alt=""/> </option>
-                                            
+                                            <option value="${item.id}" >${item.nombre} ${item.precio}    <img src="img/${item.url}" alt=""/> </option>
+
                                         </c:forEach>
-                                    </select>
+                                        -
                                 </td>
                             </tr>
                             <tr>
@@ -55,8 +55,8 @@
                         <thead>
                             <tr>
                                 <th>nombre</th>
-                                <th>precio</th>
                                 <th>estado</th>
+                                <th>precio</th>
                             </tr>
                         </thead>
                         <c:forEach var="item2" items="${carrito}">
@@ -65,6 +65,9 @@
                                     <td>${item2[0]}</td>
                                     <td>${item2[1]}</td>
                                     <td>${item2[2]}</td>
+                                    <td>
+                                        <img src="img/${item2[3]}" alt=""/>
+                                    </td>
                                 </tr>
                             </tbody>
                         </c:forEach>
@@ -88,13 +91,14 @@
                                 <td>neto</td>
                                 <td>${item3[0]}</td>
                             </tr>
-                            <tr>
-                                <td>total</td>
-                                <td>${item3[2]}</td>
-                            </tr>
+
                             <tr>
                                 <td>iva</td>
                                 <td>${item3[1]}</td>
+                            </tr>
+                            <tr>
+                                <td>total</td>
+                                <td>${item3[2]}</td>
                             </tr>
 
                         </table>

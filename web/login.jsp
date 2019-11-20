@@ -94,7 +94,7 @@
                             <h1>inicia sesion</h1>
                         </div>
 
-                        <form action="Login" method="POST" class="col-12">
+                        <form action="login" method="POST" class="col-12">
                             <div class="row align-items-center">
                                 <div class="col-md-8 mb-3 mb-md-0">
                                     <input type="correo" class="form-control" name="txtCorreo" placeholder="jose@gmail.com">

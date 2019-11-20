@@ -14,7 +14,8 @@
     se.removeAttribute("cerror");
     se.removeAttribute("carrito");
     se.removeAttribute("valor");
-    se.removeAttribute("cerror");
+    //se.removeAttribute("cerror");
+    se.removeAttribute("clientes");
     
     
     %>
@@ -80,7 +81,10 @@
                     </div>
                 </div>
             </div>
-
+  <div class="jumbotron">
+                        ${rese.getNombre()}
+                        ${clientes.getNombre()}
+                    </div>
 
             <c:if test="${cerror!=null}">
                 <div class="alert alert-danger">
