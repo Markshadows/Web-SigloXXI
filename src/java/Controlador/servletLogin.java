@@ -100,13 +100,13 @@ public class servletLogin extends HttpServlet {
                     request.getSession().setAttribute("usuarios", usu);
                     break;
                 default:
-                    response.sendRedirect("login.jsp");
                     request.setAttribute("error", "no ingreso");
+                    response.sendRedirect("login.jsp");
                     break;
             }
         } catch (Exception e) {
-            response.sendRedirect("login.jsp");
             request.setAttribute("error", "no ingreso");
+            response.sendRedirect("login.jsp");
         }
 
     }

@@ -55,6 +55,9 @@ public class servletBoleta extends HttpServlet {
             case "pagar":
                 pagar(request, response);
                 break;
+            case "transferir":
+                transferir(request, response);
+                break;
 
             default:
                 listar(request, response);
@@ -102,36 +105,34 @@ public class servletBoleta extends HttpServlet {
     }// </editor-fold>
 
     private void pagar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int pago = Integer.parseInt(request.getParameter("cboModoP"));
-        ModoPago mp = new ModoPago(pago);
         Service1_Service servicio = new Service1_Service();
         Service1 cliente = servicio.getService1Port();
-
-        if (pago == 1) {
-            Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
-            Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
-            int total = boletaFacade.total(reserva.getId());
-            EstadoBoleta estadoBoleta = new EstadoBoleta(1);
-            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
-            boletaFacade.edit(bfinal);
-            Mesa m = (Mesa) request.getSession().getAttribute("mesa");
-            Estado e = new Estado(1);
-            Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
-            mesaFacade.edit(me);
-
-        } else {
-            Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
-            Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
-            int total = boletaFacade.total(reserva.getId());
-            EstadoBoleta estadoBoleta = new EstadoBoleta(1);
-            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
-            boletaFacade.edit(bfinal);
-            Mesa m = (Mesa) request.getSession().getAttribute("mesa");
-            Estado e = new Estado(1);
-            Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
-            mesaFacade.edit(me);
-
+        ModoPago mp = new ModoPago(1);
+        Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+        Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+        int total = boletaFacade.total(reserva.getId());
+        EstadoBoleta estadoBoleta = new EstadoBoleta(1);
+        Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
+        boletaFacade.edit(bfinal);
+        Mesa m = (Mesa) request.getSession().getAttribute("mesa");
+        Estado e = new Estado(1);
+        Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
+        mesaFacade.edit(me);
+        int resp = cliente.wssii(reserva.getId());
+        if (resp == 1) {
+            request.getSession().setAttribute("bol", "boleta pagada");
         }
+//            Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+//            Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+//            int total = boletaFacade.total(reserva.getId());
+//            EstadoBoleta estadoBoleta = new EstadoBoleta(1);
+//            Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
+//            boletaFacade.edit(bfinal);
+//            Mesa m = (Mesa) request.getSession().getAttribute("mesa");
+//            Estado e = new Estado(1);
+//            Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
+//            mesaFacade.edit(me);
+
         response.sendRedirect("cliente.jsp");
     }
 
@@ -140,6 +141,31 @@ public class servletBoleta extends HttpServlet {
         Reserva reserva = reservaFacade.find(r.getId());
         request.getSession().setAttribute("n", pedidoFacade.valores(reserva.getId()));
         request.getSession().setAttribute("modop", modoPagoFacade.findAll());
+    }
+
+    private void transferir(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Service1_Service servicio = new Service1_Service();
+        Service1 cliente = servicio.getService1Port();
+        String run=request.getParameter("txtRut");
+        String pass=request.getParameter("txtPass");
+        ModoPago mp = new ModoPago(2);
+        Boleta boleta = (Boleta) request.getSession().getAttribute("boletas");
+        Reserva reserva = (Reserva) request.getSession().getAttribute("reserva");
+        int total = boletaFacade.total(reserva.getId());
+        EstadoBoleta estadoBoleta = new EstadoBoleta(1);
+        Boleta bfinal = new Boleta(boleta.getId(), boleta.getCreatedAt(), total, estadoBoleta, mp);
+        boletaFacade.edit(bfinal);
+        Mesa m = (Mesa) request.getSession().getAttribute("mesa");
+        Estado e = new Estado(1);
+        Mesa me = new Mesa(m.getId(), m.getNumero(), m.getSillas(), e);
+        mesaFacade.edit(me);
+        int sii = cliente.wStransferencia(run, pass, total);
+        int resp = cliente.wssii(reserva.getId());
+        if (resp == 1) {
+            request.getSession().setAttribute("bol", "boleta pagada");
+            request.getSession().setAttribute("nonto",sii);
+        }
+         response.sendRedirect("cliente.jsp");
     }
 
 }

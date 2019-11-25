@@ -3,8 +3,10 @@
     Created on : 08-10-2019, 0:19:35
     Author     : Asus
 --%>
-
-
+<% 
+ HttpSession se = request.getSession();
+ se.removeAttribute("cerror");
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -115,6 +117,7 @@
 
 
 
-<%@include file="footer.jsp" %>
+
 </body>
+<%@include file="footer.jsp" %>
 </html>

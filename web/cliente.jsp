@@ -8,7 +8,7 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
-    HttpSession se=request.getSession();
+    HttpSession se = request.getSession();
     se.removeAttribute("boletas");
     se.removeAttribute("reserva");
     se.removeAttribute("cerror");
@@ -16,9 +16,9 @@
     se.removeAttribute("valor");
     //se.removeAttribute("cerror");
     se.removeAttribute("clientes");
-    
-    
-    %>
+
+
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,6 +46,14 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <section class="section element-animate">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </section>
 
         <section class="section element-animate">
             <div class="clearfix mb-5 pb-5">
@@ -81,16 +89,10 @@
                     </div>
                 </div>
             </div>
-  <div class="jumbotron">
-                        ${rese.getNombre()}
-                        ${clientes.getNombre()}
-                    </div>
 
-            <c:if test="${cerror!=null}">
-                <div class="alert alert-danger">
-                    <strong>${cerror}<strong> 
-                </div>
-            </c:if>
-    </body>
-    <%@include file="footer.jsp"  %>
-</html>
+
+          
+                
+                        </body>
+                        <%@include file="footer.jsp"  %>
+                        </html>

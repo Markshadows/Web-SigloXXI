@@ -72,11 +72,6 @@ estado*
 
                         <form action="Reserva" method="POST">
                             <div class="row">
-                             <!--   <div class="col-md-6 form-group">
-                                    <label >nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control ">
-                                </div>
--->
                                 <div class="col-md-6 form-group">
                                     <label>mesa</label>
                                     <select name="cboMesa" class="form-control-plaintext" >
@@ -84,9 +79,7 @@ estado*
                                             <option value="${mesa.id}" >mesa  ${mesa.numero} </option>
                                         </c:forEach>
                                     </select>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                </div> <div class="col-md-6 form-group">
                                     <label for="cboUsuario">usuario</label>
                                     <select name="cboUsuario" class="form-control-plaintext " >
                                         <c:forEach var="usu" items="${c.rows}">
@@ -102,9 +95,6 @@ estado*
                                         </c:forEach>
                                     </select>
                                 </div>
-
-
-
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <input type="submit" value="ingresar" name="btnAccion" class="btn btn-primary">
@@ -113,28 +103,20 @@ estado*
 
                             </div>
                         </form>
-   </div>
-                                </div>
+                    </div>
+                </div>
+            </div>
+            <script src="js/jquery-3.2.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.waypoints.min.js"></script>
 
-                            </div>
-
-                      
-                        <!-- END footer -->
-
-                        <!-- loader 
-                        <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#cf1d16"/></svg></div>
-                        -->
-                        <script src="js/jquery-3.2.1.min.js"></script>
-                        <script src="js/popper.min.js"></script>
-                        <script src="js/bootstrap.min.js"></script>
-                        <script src="js/owl.carousel.min.js"></script>
-                        <script src="js/jquery.waypoints.min.js"></script>
-
-                        <script src="js/jquery.magnific-popup.min.js"></script>
-                        <script src="js/magnific-popup-options.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/magnific-popup-options.js"></script>
 
 
-                        <script src="js/main.js"></script>
-                        </body>
-                          <%@include file="footer.jsp"  %>
-        </html>
+            <script src="js/main.js"></script>
+    </body>
+    <%@include file="footer.jsp"  %>
+</html>

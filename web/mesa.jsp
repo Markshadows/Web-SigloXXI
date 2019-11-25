@@ -9,7 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +22,6 @@
 
             <link rel="stylesheet" href="css/bootstrap.css">
             <link rel="stylesheet" href="css/animate.css">
-            <link rel="stylesheet" href="css/owl.carousel.min.css">
 
             <link rel="stylesheet" href="css/magnific-popup.css">
             <script src="js/validarRUT.js" type="text/javascript"></script>
@@ -35,7 +33,12 @@
             <!-- Theme Style -->
             <link rel="stylesheet" href="css/style.css">
         </head>
+
+
         <body>
+
+            
+
 
             <section class="section element-animate">
                 <div class="clearfix mb-5 pb-5">
@@ -74,11 +77,11 @@
                                             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 gestionar pedidos
                                             </a>
-                                          
+
                                         </p>
                                         <div class="collapse" id="collapseExample">
                                             <div class="card card-body">
-                                            
+
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +92,7 @@
                 </div>
             </div>
 
-
+        </section>       
 
     </body>
     <%@include file="footer.jsp"  %>

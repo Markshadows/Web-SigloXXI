@@ -47,15 +47,9 @@
                             </c:forEach>
                             </tr>
                             <tr>
-
-                                <td><input type="submit" class="btn btn-default" name="btnAccion" value="pagar efectivo"></td>
-                            </tr>
-                            <tr>
-                            <input type="submit" class="btn btn-info btn-lg" data-toggle="modal" value="transferencia" data-target="#myModal"></button>
-
-                            </tr>
+                                <td><input type="submit" class="btn btn-default" name="btnAccion" value="efectivo"></td>
+                              <td><input type="submit" class="btn btn-info btn-lg" data-toggle="modal" value="transferencia" data-target="#myModal"> </tr>
                         </table>    
-                        <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -76,6 +70,7 @@
                                                 <label >nombre</label>
                                                 <input type="password" name="txtPass" required="5" placeholder="juanito figueroa" class="form-control ">
                                             </div>
+                                            <!--boton de datos transferencia-->
                                             <div class="col-md-12 form-group">
                                                 <div class="col-md-12 form-group">
                                                     <input type="submit" value="transferir" name="btnAccion" class="btn btn-primary">
