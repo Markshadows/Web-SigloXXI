@@ -30,37 +30,40 @@
         <form action="BodegaServlet" method="POST">
             <div class="row">
                 <div class="col-md-4">
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <h6>Asunto</h6>
-                            <input type="text" class="form-control" placeholder="Asunto" id="txtAsunto" name="txtAsunto" placeholder="Asunto..." >
-                        </div>
-                        <div class="form-group">
-                            <h6>Mensaje</h6>
-                            <input type="text" class="form-control" placeholder="Mensaje" id="txtMensaje" name="txtMensaje" placeholder="Mensaje..." >
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="btnAccion" value="Enviar" >
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-8">
-
                     <div class="card">
 
                         <div class="card-header">
                             <h1 class="card-title">Solicitudes</h1>
-                            <h2 class="card-category">Enviar una Solicitud</h2>
+                            <h2 class="card-category">Descripcion del asunto</h2>
                         </div>
 
                         <div class="card-body">
+                            <div class="form-group">
+                                <h6>Asunto</h6>
+                                <input type="text" class="form-control" placeholder="Asunto" id="txtAsunto" name="txtAsunto" placeholder="Asunto..." >
+                            </div>
+                            <div class="form-group">
+                                <h6>Mensaje</h6>
+                                <input type="text" class="form-control" placeholder="Mensaje" id="txtMensaje" name="txtMensaje" placeholder="Mensaje..." >
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="btnAccion" value="Enviar" >
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <i class="fas fa-exclamation-circle"></i> Favor de seleccionar productos
+                        </div>
 
-
-
-
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Solicitudes</h1>
+                            <h2 class="card-category">Enviar una Solicitud</h2>
+                        </div>
+                        <div class="card-body">
                             <div class="table-responsive-sm">
                                 <table class="table">
                                     <thead class=" text-danger">
@@ -114,21 +117,13 @@
 
 
         <div class="row">
-
-
-
-
-
-
             <div class="col-md-12">
                 <div class="card">
-
                     <div class="card-header">
                         <h1 class="card-title">Solicitudes</h1>
                         <h2 class="card-category">Solicitudes Enviadas</h2>
                     </div>
                     <div class="card-body">
-
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-danger">
@@ -145,7 +140,6 @@
                                 <tbody>
                                     <c:forEach var="sol" items="${listaDeSolicitudes}">
                                         <tr>
-
                                             <%--
                                             <td><c:out value="${sol.idSolicitud}"/></td>
                                             --%>
@@ -153,44 +147,42 @@
                                             <td>${sol.mensaje}</td>
                                             <td>
                                                 <c:forEach var="prosol" items="${sol.productoSolicitudList}">
-
                                                     <%--
                                                     ${prosol.productoId}
                                                     --%>
                                                     ${prosol.productoId.nombre}
-
                                                     Quedan:
                                                     <p class="text-danger">${prosol.productoId.metricaId.peso}
                                                         ${prosol.productoId.metricaId.medida}</p>
-
-
-                                                </c:forEach>
+                                                    </c:forEach>
                                             </td>
-
-
-
                                             <c:choose>
                                                 <c:when test="${sol.estadoSolicitud.descripcion=='Enviada'}">
                                                     <td>
-                                                        <p class="text-primary">${sol.estadoSolicitud.descripcion}</p>
+                                                        <p class="text-primary"><strong> ${sol.estadoSolicitud.descripcion}</strong></p>
                                                     </td>
-                                                </c:when>    
+                                                </c:when>
+                                                <c:when test="${sol.estadoSolicitud.descripcion=='Abierta'}">
+                                                    <td>
+                                                        <p class="text-info"><strong>${sol.estadoSolicitud.descripcion}</strong></p>
+                                                    </td>
+                                                </c:when>
+                                                <c:when test="${sol.estadoSolicitud.descripcion=='Pospuesta'}">
+                                                    <td>
+                                                        <p class="text-warning"><strong>${sol.estadoSolicitud.descripcion}</strong></p>
+                                                    </td>
+                                                </c:when>
                                                 <c:otherwise>
                                                     <td>
-                                                        <p class="text-danger">${sol.estadoSolicitud.descripcion}</p>
+                                                        <p class="text-danger"><strong>${sol.estadoSolicitud.descripcion}</strong></p>
                                                     </td>
                                                 </c:otherwise>
                                             </c:choose>
-
-
                                         </tr>
                                     </c:forEach>
-
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>   

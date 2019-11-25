@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
             name = "sp_ingreso_promedio",
             procedureName = "sp_ingreso_promedio",
             parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = Ingreso.class, name = "p_promedio")}
+                @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = Void.class, name = "p_promedio")}
     )
 })
 

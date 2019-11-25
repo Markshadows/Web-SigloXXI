@@ -200,6 +200,7 @@ public class BodegaServlet extends HttpServlet {
         request.getSession().removeAttribute("listaDeSolicitudes");
         request.getSession().removeAttribute("listaDeProductoSolicitud");
         
+        
         request.getSession().setAttribute("listaDeProductos", productoFacade.findAll());
         request.getSession().setAttribute("listaDetalleIngreso", detalleIngresoFacade.findAll());
         request.getSession().setAttribute("listaDeSolicitudes", solicitudFacade.findAll());
@@ -207,8 +208,8 @@ public class BodegaServlet extends HttpServlet {
 
         
         
-        request.getSession().setAttribute("ingresoPromedio", ingresoFacade.promedioIngreso());
-        
+        //request.getSession().setAttribute("ingresoPromedio", ingresoFacade.promedioIngreso());
+        request.getSession().setAttribute("producto", ingresoFacade.promedioIngreso());
         //request.getSession().setAttribute("listaDeIngresos", ingresoFacade.findAll());
     }
 

@@ -46,6 +46,8 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
         return (BigDecimal) query.getSingleResult();
     }
 
+    /*
+
     public List<Object> promedioIngreso() {
         try {
             Query query = em.createNativeQuery("SELECT p FROM promedio p");
@@ -55,8 +57,8 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
             return null;
         }
     }
-
-    /*
+     */
+ /*
     
     public List<Object> promedioIngreso() {
         try {
@@ -103,4 +105,17 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
         }
     }
      */
+    public List<Object[]> promedioIngreso() {
+        try {
+
+            StoredProcedureQuery q = this.em.createNamedStoredProcedureQuery("sp_ingreso_promedio");
+            q.execute();
+            List<Object[]> promedios = q.getResultList();
+            return promedios;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }
